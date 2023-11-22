@@ -1,0 +1,53 @@
+{
+  "Hello": {
+    "message": " Hello, this bot is designed to download video and audio from YouTube, select from the menu what you want to download."
+  },
+  "Text": {
+    "download": "Select from the menu what you want to download.",
+    "convert": "Select from the menu what you want to convert.",
+    "video": "Select from the menu what you want to do with the video.",
+    "menu": "Main menu."
+  },
+  "Shorts": {
+    "message": "Download Shorts ⌛\uFE0F"
+  },
+  "Long": {
+    "message": "Download long video \uD83C\uDFA5",
+    "restrictions": "Send a link to the video.\n⚠️ Video should not last more than 7 minutes.",
+    "duration": "⚠️ Video should not last more than 7 minutes."
+  },
+  "Audio": {
+    "message": "Video in audio \uD83C\uDFB5",
+    "restrictions": "Send a link to the video.\n⚠️ Video should not weigh more than 50mb."
+  },
+  "ParsingChannels": {
+    "restrictions": "Отправьте название для поиска."
+  },
+  "ParsingUsers": {
+    "restrictions": "Отправте ссылку на канал."
+  },
+  "Parsing":{
+    "message": "Выбери в меню что нужно парсить."
+  },
+  "ChooseLang": {
+    "chooseMessage": "Choose language \uD83C\uDDFA\uD83C\uDDF8",
+    "message": "Language \uD83C\uDDFA\uD83C\uDDF8"
+  },
+  "Video": {
+    "shortsMessage": "Send me a link to the video."
+  },
+  "Convert": {
+    "message": "Select from the menu what you want to convert."
+  },
+  "Back": {
+    "message": "⬅\uFE0F Back"
+  },
+  "UncorrectedLink": {
+    "message": "❌ Uncorrected link"
+  },
+  "Loading": {
+    "message": "Loading...",
+    "loading": "Wait for the previous video to be installed.",
+    "error": "❌ Error"
+  }
+}
