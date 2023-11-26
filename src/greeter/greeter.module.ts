@@ -9,7 +9,7 @@ import { AdminSchema } from '../models/Admin.model';
 import { UserSchema } from '../models/User.model';
 import { ErrorSchema } from '../models/Error.model';
 import { ChannelSubscriptionsSchema } from '../models/Channel.model';
-import { UserService } from './services/user.service';
+
 import { AnalyticsScene } from './scenes/analytics.scene';
 import { NewsletterScene } from './scenes/newsletter.scene';
 import { AnalyticsService } from './services/analytic.service';
@@ -19,15 +19,19 @@ import { ExaminationWizardScene } from './scenes/examination.scene';
 import { ChannelsService } from './services/channelSearch.service';
 import { ChannelsSchema } from 'src/models/ChannelsSearch.model';
 import { ChannelsSearchScene } from './scenes/channelsSearch.scene';
+import { ChannelUserSearchScene } from './scenes/channelUserSearch.scene';
+import { GramModule } from 'src/gram/gram.module';
+import { VideoNoteScene } from './scenes/video-note.scene';
+import { ChatScene } from './scenes/chat.scene';
+import { BuyScene } from './scenes/buy.scene';
+import { DescriptionScene } from './scenes/description.scene';
+import { WalletPayModule } from 'src/walletpay/walletpay.module';
+import { UserModule } from 'src/user/user.module';
 //import { Telegraf } from 'telegraf';
 
 @Module({
 	imports: [
 		MongooseModule.forFeature([
-			{
-				name: 'admin',
-				schema: AdminSchema
-			},
 			{
 				name: 'user',
 				schema: UserSchema
@@ -52,7 +56,10 @@ import { ChannelsSearchScene } from './scenes/channelsSearch.scene';
 				name: 'channelsSearch',
 				schema: ChannelsSchema
 			}
-		])
+		]),
+		GramModule,
+		WalletPayModule,
+		UserModule
 	],
 	providers: [
 		ChannelsService,
@@ -60,17 +67,19 @@ import { ChannelsSearchScene } from './scenes/channelsSearch.scene';
 		ShortsScene,
 		TikTocScene,
 		AudioScene,
+		VideoNoteScene,
+		ChatScene,
 		LongScene,
-		UserService,
 		AnalyticsScene,
 		NewsletterScene,
 		ExaminationWizardScene,
 		ChannelsSearchScene,
+		ChannelUserSearchScene,
 		AnalyticsService,
+		DescriptionScene,
+		BuyScene
 		//Telegraf
 	]
-
-	//exports: [UserService]
 })
 export class GreeterModule {}
 //

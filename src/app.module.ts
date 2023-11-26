@@ -8,6 +8,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import * as LocalSession from 'telegraf-session-local';
 import { I18 } from './lib/i18';
 import { path } from 'app-root-path';
+import { GramModule } from './gram/gram.module';
+import { WalletPayModule } from './walletpay/walletpay.module';
+import { UserModule } from './user/user.module';
+import { WalletPayWebhookController } from './walletpay/controller/webhook.controller';
+import { NestFactory } from '@nestjs/core';
 
 const i18n = new I18({
 	defaultLocale: 'ru',
@@ -50,7 +55,11 @@ const i18n = new I18({
 			},
 			inject: [ConfigService]
 		}),
-		GreeterModule
-	]
+		GreeterModule,
+		GramModule,
+		WalletPayModule,
+		UserModule
+	],
+	controllers: [WalletPayWebhookController]
 })
 export class AppModule {}

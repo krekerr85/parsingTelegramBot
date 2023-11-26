@@ -1,16 +1,15 @@
 import { Markup } from 'telegraf';
 import { IContext } from '../interfaces/context.interface';
 
-export const ParsingMenu = (ctx: IContext): Markup.Markup<any> => {
+export const NewsLetterMenu = (ctx: IContext): Markup.Markup<any> => {
 	return Markup.keyboard(
 		[
 			// Markup.button.callback(ctx.i18.t('Shorts.message'), 'downloadShorts'),
 			// Markup.button.callback(ctx.i18.t('Long.message'), 'downloadLongVideo'),
 			// Markup.button.callback(ctx.i18.t('Audio.message'), 'downloadAudio'),
 			
-			Markup.button.callback(ctx.i18.t('Участники'), 'users'),
-			Markup.button.callback(ctx.i18.t('Каналы/Чаты'), 'channels'),
-			Markup.button.callback(ctx.i18.t('Рассылка'), 'newsletter'),
+			Markup.button.callback(ctx.i18.t('Описание'), 'description'),
+			Markup.button.callback(ctx.i18.t('Купить'), 'buy'),
 			Markup.button.callback(ctx.i18.t('Back.message'), 'cancel'),
 			
 		],

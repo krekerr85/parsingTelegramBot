@@ -5,6 +5,7 @@ export const ConverterMenu = (ctx: IContext): Markup.Markup<any> => {
 	return Markup.keyboard(
 		[
 			Markup.button.callback(ctx.i18.t('Audio.message'), 'downloadAudio'),
+			Markup.button.callback(ctx.i18.t('VideoNote.message'), 'downloadVideo'),
 			Markup.button.callback(ctx.i18.t('Back.message'), 'cancel'),
 		],
 		{

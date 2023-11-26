@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from '../../models/User.model';
-import { Admin } from '../../models/Admin.model';
+import { Admin } from 'src/models/Admin.model';
+import { User } from 'src/models/User.model';
+
 
 @Injectable()
 export class UserService {
@@ -34,6 +35,11 @@ export class UserService {
 				}
 			)
 			.exec();
+	}
+
+	async findById(userId: string): Promise<User | null> {
+		const user = await this.userModel.findById(userId).exec();
+		return user;
 	}
 
 	async isAdmin(tgId: number): Promise<boolean> {

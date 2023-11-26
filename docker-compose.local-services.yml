@@ -1,0 +1,24 @@
+version: '3.8'
+
+networks:
+  common.network:
+    driver: bridge
+
+volumes:
+  shorts_mongodb_vol:
+    name: "shorts_mongodb_vol"
+
+services: 
+  shorts_mongodb:
+    container_name: shorts_mongodb
+    image: mongo:latest
+    networks:
+      - common.network
+    ports:
+      - 19990:27017
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+    volumes:
+      - shorts_mongodb_vol:/data/db
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all" ]

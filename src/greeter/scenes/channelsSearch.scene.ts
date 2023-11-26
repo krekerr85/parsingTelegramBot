@@ -71,6 +71,7 @@ export class ChannelsSearchScene {
 				filename: 'channels.txt'
 			});
 
+			await ctx.reply(ctx2.i18.t('Parsing.message'), ParsingMenu(ctx2));
 			return;
 		} catch (err) {
 			await this.analyticsService.createError('parseChannels');

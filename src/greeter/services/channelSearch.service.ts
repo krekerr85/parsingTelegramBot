@@ -14,7 +14,8 @@ export class ChannelsService {
 	) {}
 
 	async getChannels(query: string) {
-		const queryResult = await this.channelsModel.findOne({ query });
+		const queryResult = (await this.channelsModel.find({ query }))[0];
+    
 		if (!queryResult) {
 			return (await this.addChannels(query)).channels;
 		}

@@ -13,25 +13,31 @@ import { Menu } from '../Markup/Menu';
 import {
 	ANALYTICS_SCENE_ID,
 	AUDIO_SCENE_ID,
+	BUY_SCENE_ID,
 	CHANNELS_SEARCH_SCENE_ID,
 	CHANNEL_USER_SEARCH_SCENE_ID,
+	CHAT_SCENE_ID,
+	DESCRIPTION_SCENE_ID,
 	EXAMINATION_SCENE_ID,
 	LONGS_SCENE_ID,
 	NEWSLETTER_SCENE_ID,
 	SHORTS_SCENE_ID,
-	TIKTOK_SCENE_ID
+	TIKTOK_SCENE_ID,
+	VIDEO_NOTE_SCENE_ID
 } from '../app.constants';
 import { ChooseLang } from '../Markup/ChooseLang';
 import { VideoMenu } from '../Markup/VideoMenu';
 import { UseFilters, UseGuards } from '@nestjs/common';
 import { TelegrafExceptionFilter } from './common/filtres/telegraf-exception.filter';
-import { UserService } from './services/user.service';
+
 import { AdminMenu } from '../Markup/AdminMenu';
 import { AdminGuard } from './common/AdminGuard';
 import { ChannelMenu } from '../Markup/ChannelMenu';
 import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
 import { ConverterMenu } from 'src/Markup/ConverterMenu';
 import { ParsingMenu } from 'src/Markup/ParsingMenu';
+import {NewsLetterMenu} from 'src/Markup/NewsLetterMenu';
+import { UserService } from 'src/user/user.service';
 
 @Update()
 @UseFilters(TelegrafExceptionFilter)
@@ -123,6 +129,15 @@ export class GreeterUpdate {
 		return;
 	}
 
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('VideoNote.message');
+	})
+	async hearsVideoNote(@Ctx() ctx: ScenesContext) {
+		await ctx.scene.enter(VIDEO_NOTE_SCENE_ID);
+		return;
+	}
+
 	@UseGuards(AdminGuard)
 	@Hears('Админка 🤖')
 	async onAdmin(@Ctx() ctx: IContext): Promise<void> {
@@ -165,7 +180,7 @@ export class GreeterUpdate {
 
 	@Hears('Парсинг')
 	async onParse(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('Text.video'), ParsingMenu(ctx));
+		await ctx.reply(ctx.i18.t('Parsing.message'), ParsingMenu(ctx));
 		return;
 	}
 
@@ -197,7 +212,30 @@ export class GreeterUpdate {
 		await ctx.scene.enter(CHANNEL_USER_SEARCH_SCENE_ID);
 		return;
 	}
-	
+
+	@Hears('Рассылка')
+	async onNewsLetter(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('NewsLetter.message'), NewsLetterMenu(ctx));
+		return;
+	}
+
+	@Hears('Чат')
+	async onChat(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(CHAT_SCENE_ID);
+		return;
+	}
+
+	@Hears('Описание')
+	async onDescription(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(DESCRIPTION_SCENE_ID);
+		return;
+	}
+
+	@Hears('Купить')
+	async onBuy(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(BUY_SCENE_ID);
+		return;
+	}
 
 	@On('text')
 	async onDownloadBack(@Ctx() ctx: IContext) {

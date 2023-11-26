@@ -1,6 +1,6 @@
 {
   "Hello": {
-    "message": " Hello, this bot is designed to download video and audio from YouTube, select from the menu what you want to download."
+    "message": "Hello, this bot is designed to download video and audio from YouTube, select from the menu what you want to download."
   },
   "Text": {
     "download": "Select from the menu what you want to download.",
@@ -9,29 +9,49 @@
     "menu": "Main menu."
   },
   "Shorts": {
-    "message": "Download Shorts ⌛\uFE0F"
+    "message": "Download Shorts ⌛️"
   },
   "Long": {
-    "message": "Download long video \uD83C\uDFA5",
+    "message": "Download long video 🎥",
     "restrictions": "Send a link to the video.\n⚠️ Video should not last more than 7 minutes.",
     "duration": "⚠️ Video should not last more than 7 minutes."
   },
   "Audio": {
-    "message": "Video in audio \uD83C\uDFB5",
+    "message": "Video in audio 🎵",
     "restrictions": "Send a link to the video.\n⚠️ Video should not weigh more than 50mb."
   },
+  "VideoNote": {
+    "message": "Video to video converter 🎵",
+    "restrictions": "Send a link to the video.\n⚠️ Video should not last more than 7 minutes.",
+    "duration": "⚠️ Video should not last more than 7 minutes."
+  },
+  "Chat": {
+    "message": "Link to our chat @TWITRIS."
+  },
+  "Description": {
+    "message": "Link to our chat @TWITRIS."
+  },
+  "Buy": {
+    "message": "Link to our chat @TWITRIS."
+  },
+  "Payment": {
+    "message": ":purse: Buy"
+  },
+  "NewsLetter": {
+    "message": "Select from the menu what you want to do."
+  },
   "ParsingChannels": {
-    "restrictions": "Отправьте название для поиска."
+    "restrictions": "Send the name to search."
   },
   "ParsingUsers": {
-    "restrictions": "Отправте ссылку на канал."
+    "restrictions": "Send a link to the channel."
   },
-  "Parsing":{
-    "message": "Выбери в меню что нужно парсить."
+  "Parsing": {
+    "message": "Choose from the menu what needs to be parsed."
   },
   "ChooseLang": {
-    "chooseMessage": "Choose language \uD83C\uDDFA\uD83C\uDDF8",
-    "message": "Language \uD83C\uDDFA\uD83C\uDDF8"
+    "chooseMessage": "Choose language 🇺🇸",
+    "message": "Language 🇺🇸"
   },
   "Video": {
     "shortsMessage": "Send me a link to the video."
@@ -40,7 +60,7 @@
     "message": "Select from the menu what you want to convert."
   },
   "Back": {
-    "message": "⬅\uFE0F Back"
+    "message": "⬅️ Back"
   },
   "UncorrectedLink": {
     "message": "❌ Uncorrected link"

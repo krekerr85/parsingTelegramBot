@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { TelegrafExecutionContext, TelegrafException } from 'nestjs-telegraf';
 import { IContext } from '../../interfaces/context.interface';
-import { UserService } from '../services/user.service';
+
 
 @Injectable()
 export class SubsGuard implements CanActivate {
