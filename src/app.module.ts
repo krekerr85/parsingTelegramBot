@@ -12,6 +12,7 @@ import { GramModule } from './gram/gram.module';
 import { WalletPayModule } from './walletpay/walletpay.module';
 import { UserModule } from './user/user.module';
 import { WalletPayWebhookController } from './walletpay/controller/webhook.controller';
+import { AppController } from './app.controller';
 
 const i18n = new I18({
 	defaultLocale: 'ru',
@@ -59,6 +60,6 @@ const i18n = new I18({
 		WalletPayModule,
 		UserModule
 	],
-	controllers: [WalletPayWebhookController]
+	controllers: [WalletPayWebhookController, AppController]
 })
 export class AppModule {}

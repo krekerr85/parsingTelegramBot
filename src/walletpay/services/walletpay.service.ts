@@ -1,10 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { Payments } from 'src/walletpay/models/Payments.model';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { InjectModel } from '@nestjs/mongoose';
-
 import * as fs from 'fs';
 import * as path from 'path';
 import { InjectBot } from 'nestjs-telegraf';
@@ -22,12 +21,13 @@ export class WalletPayService {
 
 	async createOrder(userId: number) {
 		const existingPayment = await this.paymentsModel.findOne({
-			userId: userId
-		});
+			userId: userId,
+			status: 'success'
+		  });
 
 		if (existingPayment) {
 			this.sendArchive(userId);
-			return;
+			return existingPayment;
 		}
 
 		const WALLET_PAY_API_KEY = process.env.WALLET_API;
@@ -68,15 +68,14 @@ export class WalletPayService {
 			const response = await axios.post(url, data, { headers });
 			const paymentLink = response.data.data.payLink;
 
-			await this.paymentsModel.create({
+			return await this.paymentsModel.create({
 				tonCost,
 				dollarCost,
 				externalId,
+				paymentLink,
 				userId: customerTelegramUserId
 			});
-			await this.sendArchive(userId);
 
-			return { tonCost, paymentLink };
 		} catch (error) {
 			console.error('Failed to create payment link:', error);
 			return null;

@@ -27,6 +27,10 @@ export class Payments extends Document {
 
 	@Prop({ required: true, type: Number })
 	dollarCost: number;
+
+  @Prop({ required: true, type: String })
+	paymentLink: string;
+  
 }
 
 export const PaymentsSchema = SchemaFactory.createForClass(Payments);

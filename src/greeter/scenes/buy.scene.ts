@@ -1,7 +1,6 @@
 import { Scene, SceneEnter, SceneLeave, Ctx, Hears } from 'nestjs-telegraf';
 import { BUY_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
-
 import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
 import { WalletPayService } from '../../walletpay/services/walletpay.service';
 import { Markup } from 'telegraf';
@@ -15,7 +14,11 @@ export class BuyScene {
 		const userId = ctx.from?.id;
 		if (userId) {
 			const order = await this.walletPayService.createOrder(userId);
-			if (!order) {
+			if (!order){
+				ctx.reply('Ошибка при создании заказа.');
+				return;
+			}
+			if (order.status === 'success') {
 				ctx.reply('Вы уже приобрели программу!');
 				return;
 			}
