@@ -10,7 +10,6 @@ import {
 import { TIKTOK_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Back } from '../../Markup/Back';
-import { Menu } from '../../Markup/Menu';
 import { v4 as uuidv4 } from 'uuid';
 import { TicTokDownloader } from '../../utils/TicTokDownloader';
 import { AnalyticsService } from '../services/analytic.service';

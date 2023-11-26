@@ -11,8 +11,6 @@ import { AUDIO_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Back } from '../../Markup/Back';
 import { ClassDownloader } from '../../utils/YouTubeDownloader.class';
-import { v4 as uuidv4 } from 'uuid';
-import { VideoMenu } from '../../Markup/VideoMenu';
 import { AnalyticsService } from '../services/analytic.service';
 import { ConverterMenu } from 'src/Markup/ConverterMenu';
 

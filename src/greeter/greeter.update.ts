@@ -29,22 +29,19 @@ import { ChooseLang } from '../Markup/ChooseLang';
 import { VideoMenu } from '../Markup/VideoMenu';
 import { UseFilters, UseGuards } from '@nestjs/common';
 import { TelegrafExceptionFilter } from './common/filtres/telegraf-exception.filter';
-
 import { AdminMenu } from '../Markup/AdminMenu';
 import { AdminGuard } from './common/AdminGuard';
 import { ChannelMenu } from '../Markup/ChannelMenu';
 import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
 import { ConverterMenu } from 'src/Markup/ConverterMenu';
 import { ParsingMenu } from 'src/Markup/ParsingMenu';
-import {NewsLetterMenu} from 'src/Markup/NewsLetterMenu';
+import { NewsLetterMenu } from 'src/Markup/NewsLetterMenu';
 import { UserService } from 'src/user/user.service';
 
 @Update()
 @UseFilters(TelegrafExceptionFilter)
 export class GreeterUpdate {
-	constructor(
-		private userService: UserService //private readonly bot: Telegraf<IContext>
-	) {}
+	constructor(private userService: UserService) {}
 
 	@Use()
 	async use(@Ctx() ctx: IContext, @Next() next: () => Promise<void>) {
@@ -242,5 +239,4 @@ export class GreeterUpdate {
 		await ctx.reply(ctx.i18.t('Text.menu'), Menu(ctx));
 		return;
 	}
-
 }

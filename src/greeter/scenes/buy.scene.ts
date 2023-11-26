@@ -1,51 +1,40 @@
-import {
-	Scene,
-	SceneEnter,
-	SceneLeave,
-	Ctx,
-	Hears,
-	On,
-	Message
-} from 'nestjs-telegraf';
-import { BUY_SCENE_ID, LONGS_SCENE_ID } from '../../app.constants';
+import { Scene, SceneEnter, SceneLeave, Ctx, Hears } from 'nestjs-telegraf';
+import { BUY_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
-import { Back } from '../../Markup/Back';
-import { ClassDownloader } from '../../utils/YouTubeDownloader.class';
-import { v4 as uuidv4 } from 'uuid';
-import { VideoMenu } from '../../Markup/VideoMenu';
-import { AnalyticsService } from '../services/analytic.service';
+
 import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
 import { WalletPayService } from '../../walletpay/services/walletpay.service';
 import { Markup } from 'telegraf';
 
 @Scene(BUY_SCENE_ID)
 export class BuyScene {
-	private downloaderService: ClassDownloader = new ClassDownloader();
-
-	constructor(private analyticsService: AnalyticsService,
-		private walletPayService: WalletPayService) {}
+	constructor(private walletPayService: WalletPayService) {}
 
 	@SceneEnter()
 	async onSceneEnter(@Ctx() ctx: IContext): Promise<void> {
 		const userId = ctx.from?.id;
 		if (userId) {
 			const order = await this.walletPayService.createOrder(userId);
-			if (!order){
+			if (!order) {
+				ctx.reply('Вы уже приобрели программу!');
 				return;
 			}
-			console.log(order.paymentLink)
+
 			if (order.paymentLink) {
 				const keyboard = Markup.inlineKeyboard([
 					Markup.button.url(`👛 Wallet Pay`, order.paymentLink)
-				  ])
+				]);
 
-				ctx.reply(`Стоимость ${order.tonCost} TON. \nНажмите на кнопку чтобы оплатить:`, keyboard);
+				ctx.reply(
+					`Стоимость ${order.tonCost} TON. \nНажмите на кнопку чтобы оплатить:`,
+					keyboard
+				);
 			} else {
-				console.log('buttonUrl not defined')
+				console.log('buttonUrl not defined');
 				ctx.reply('Ошибка при создании заказа.');
 			}
 		} else {
-			console.log('userId not defined')
+			console.log('userId not defined');
 			ctx.reply('Ошибка при создании заказа.');
 		}
 	}
@@ -54,7 +43,7 @@ export class BuyScene {
 	async onSceneLeave(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.download'), DownLoadMenu(ctx));
 	}
-	//
+
 	// @ts-ignore
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('Back.message');
@@ -72,6 +61,4 @@ export class BuyScene {
 	async onRestart(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.leave();
 	}
-
-	
 }

@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { Admin } from 'src/models/Admin.model';
 import { User } from 'src/models/User.model';
 
-
 @Injectable()
 export class UserService {
 	constructor(

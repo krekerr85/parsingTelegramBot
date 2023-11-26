@@ -5,11 +5,9 @@ import { TikTocScene } from './scenes/tik-toc.scene';
 import { AudioScene } from './scenes/audio.scene';
 import { LongScene } from './scenes/long.scene';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AdminSchema } from '../models/Admin.model';
 import { UserSchema } from '../models/User.model';
 import { ErrorSchema } from '../models/Error.model';
 import { ChannelSubscriptionsSchema } from '../models/Channel.model';
-
 import { AnalyticsScene } from './scenes/analytics.scene';
 import { NewsletterScene } from './scenes/newsletter.scene';
 import { AnalyticsService } from './services/analytic.service';
@@ -27,7 +25,6 @@ import { BuyScene } from './scenes/buy.scene';
 import { DescriptionScene } from './scenes/description.scene';
 import { WalletPayModule } from 'src/walletpay/walletpay.module';
 import { UserModule } from 'src/user/user.module';
-//import { Telegraf } from 'telegraf';
 
 @Module({
 	imports: [

@@ -9,21 +9,12 @@ import {
 import { ANALYTICS_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Back } from '../../Markup/Back';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User } from '../../models/User.model';
-import { Admin } from '../../models/Admin.model';
 import { AdminMenu } from '../../Markup/AdminMenu';
 import { AnalyticsService } from '../services/analytic.service';
 
 @Scene(ANALYTICS_SCENE_ID)
 export class AnalyticsScene {
-	constructor(
-		@InjectModel('user') private userModel: Model<User>,
-		@InjectModel('error') private errorModel: Model<Admin>,
-		@InjectModel('analytic') private analyticModel: Model<Admin>,
-		private analyticsService: AnalyticsService
-	) {}
+	constructor(private analyticsService: AnalyticsService) {}
 
 	@SceneEnter()
 	async onSceneEnter(@Ctx() ctx: IContext): Promise<void> {

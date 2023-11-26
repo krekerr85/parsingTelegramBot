@@ -12,7 +12,6 @@ import { GramModule } from './gram/gram.module';
 import { WalletPayModule } from './walletpay/walletpay.module';
 import { UserModule } from './user/user.module';
 import { WalletPayWebhookController } from './walletpay/controller/webhook.controller';
-import { NestFactory } from '@nestjs/core';
 
 const i18n = new I18({
 	defaultLocale: 'ru',

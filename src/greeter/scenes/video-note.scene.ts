@@ -7,12 +7,11 @@ import {
 	On,
 	Message
 } from 'nestjs-telegraf';
-import { LONGS_SCENE_ID, VIDEO_NOTE_SCENE_ID } from '../../app.constants';
+import { VIDEO_NOTE_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Back } from '../../Markup/Back';
 import { ClassDownloader } from '../../utils/YouTubeDownloader.class';
 import { v4 as uuidv4 } from 'uuid';
-import { VideoMenu } from '../../Markup/VideoMenu';
 import { AnalyticsService } from '../services/analytic.service';
 import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
 import * as fs from 'fs';
@@ -93,17 +92,12 @@ export class VideoNoteScene {
 				videoStream,
 				filename
 			);
-			console.log(proccesVideo);
-			const res = await ctx.sendVideoNote(
-				{
-					source: proccesVideo,
-					filename
-				},
-				{
-					length: 360
-				}
-			);
-			console.log(res);
+
+			const res = await ctx.sendVideoNote({
+				source: proccesVideo,
+				filename
+			});
+
 			await this.analyticsService.createAnalyticLong(
 				ctx2.from.username || ctx2.from.first_name,
 				message

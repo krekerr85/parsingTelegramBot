@@ -21,19 +21,20 @@ export class WalletPayService {
 	) {}
 
 	async createOrder(userId: number) {
-		const existingPayment = await this.paymentsModel.findOne({ userId: userId });
+		const existingPayment = await this.paymentsModel.findOne({
+			userId: userId
+		});
 
 		if (existingPayment) {
-		  this.sendArchive(userId);
-		  return;
+			this.sendArchive(userId);
+			return;
 		}
 
-		const WALLET_PAY_API_KEY = 'mDsCBC9DEMrbmZwwXXYamfnGSCG8XWZP6d6F';
-		const RETURN_URL = 'https://t.me/parse_krekerr_bot';
-		const FAIL_RETURN_URL = 'https://t.me/wallet';
+		const WALLET_PAY_API_KEY = process.env.WALLET_API;
+		const RETURN_URL = process.env.BOT_URL;
+		const FAIL_RETURN_URL = process.env.WALLET_PAY_URL;
 		const dollarCost = 0.01;
 		const tonCost = (await this.getPriceToncoinUSD(dollarCost)).toFixed(9);
-		console.log(tonCost, 'tonCost');
 		const amount = {
 			currencyCode: 'TON',
 			amount: String(tonCost)
@@ -66,15 +67,15 @@ export class WalletPayService {
 		try {
 			const response = await axios.post(url, data, { headers });
 			const paymentLink = response.data.data.payLink;
-			console.log(response.data);
-			const res = await this.paymentsModel.create({
+
+			await this.paymentsModel.create({
 				tonCost,
 				dollarCost,
 				externalId,
 				userId: customerTelegramUserId
 			});
-			console.log(res);
-			this.sendArchive(userId);
+			await this.sendArchive(userId);
+
 			return { tonCost, paymentLink };
 		} catch (error) {
 			console.error('Failed to create payment link:', error);
@@ -90,7 +91,7 @@ export class WalletPayService {
 					symbol: 'TON'
 				},
 				headers: {
-					'X-CMC_PRO_API_KEY': 'a13640b8-1d2b-495e-ba36-e0588527bbb1' // Замените YOUR_API_KEY на ваш ключ API CoinMarketCap
+					'X-CMC_PRO_API_KEY': process.env.COINMARKETCAP_TOKEN
 				}
 			}
 		);

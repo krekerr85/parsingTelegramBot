@@ -7,10 +7,9 @@ import {
 	On,
 	Message
 } from 'nestjs-telegraf';
-import { CHANNELS_SEARCH_SCENE_ID, CHANNEL_USER_SEARCH_SCENE_ID } from '../../app.constants';
+import { CHANNEL_USER_SEARCH_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Back } from '../../Markup/Back';
-import { ChannelsService } from '../services/channelSearch.service';
 import { ParsingMenu } from 'src/Markup/ParsingMenu';
 import { AnalyticsService } from '../services/analytic.service';
 import { GramService } from 'src/gram/gram.service';
@@ -18,7 +17,6 @@ import { GramService } from 'src/gram/gram.service';
 @Scene(CHANNEL_USER_SEARCH_SCENE_ID)
 export class ChannelUserSearchScene {
 	constructor(
-		private channelsSearchService: ChannelsService,
 		private analyticsService: AnalyticsService,
 		private gramService: GramService
 	) {}
@@ -64,8 +62,8 @@ export class ChannelUserSearchScene {
 		const loadingMessage = await ctx.reply(ctx2.i18.t('Loading.message'));
 		try {
 			ctx.session.__scenes.state.isLoading = true;
-			
-			const users = await this.gramService.searchUsers(message)
+
+			const users = await this.gramService.searchUsers(message);
 			const userNames = users.map(user => user.username);
 			const fileContent = userNames.join('\n');
 			await ctx.replyWithDocument({
@@ -75,7 +73,7 @@ export class ChannelUserSearchScene {
 			await ctx.reply(ctx2.i18.t('Parsing.message'), ParsingMenu(ctx2));
 			return;
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 			await this.analyticsService.createError('parseChannels');
 			await ctx.reply(ctx2.i18.t('Loading.error'));
 		} finally {
