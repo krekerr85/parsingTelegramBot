@@ -40,7 +40,7 @@ export class UserService {
 	}
 
 	async findById(userId: string): Promise<User | null> {
-		const user = await this.userModel.findById(userId).exec();
+		const user = await this.userModel.findOne({userId}).exec();
 		return user;
 	}
 
