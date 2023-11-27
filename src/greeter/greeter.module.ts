@@ -25,6 +25,10 @@ import { BuyScene } from './scenes/buy.scene';
 import { DescriptionScene } from './scenes/description.scene';
 import { WalletPayModule } from 'src/walletpay/walletpay.module';
 import { UserModule } from 'src/user/user.module';
+import { ParamsSchema } from 'src/models/Params.model';
+import { ParamsService } from './services/params.service';
+import { SubsActivateScene } from './scenes/subsActivate.scene';
+import { DonateScene } from './scenes/donate.scene';
 
 @Module({
 	imports: [
@@ -52,6 +56,10 @@ import { UserModule } from 'src/user/user.module';
 			{
 				name: 'channelsSearch',
 				schema: ChannelsSchema
+			},
+			{
+				name: 'params',
+				schema: ParamsSchema
 			}
 		]),
 		GramModule,
@@ -73,7 +81,10 @@ import { UserModule } from 'src/user/user.module';
 		ChannelsSearchScene,
 		ChannelUserSearchScene,
 		AnalyticsService,
+		ParamsService,
 		DescriptionScene,
+		SubsActivateScene,
+		DonateScene,
 		BuyScene
 		//Telegraf
 	]

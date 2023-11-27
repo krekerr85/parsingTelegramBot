@@ -70,7 +70,7 @@ export class ChannelUserSearchScene {
 				source: Buffer.from(fileContent),
 				filename: 'users.txt'
 			});
-			await ctx.reply(ctx2.i18.t('Parsing.message'), ParsingMenu(ctx2));
+			await ctx.reply(ctx2.i18.t('ParsingUsers.restrictions'), Back(ctx2));
 			return;
 		} catch (err) {
 			console.log(err);

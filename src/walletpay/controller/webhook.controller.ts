@@ -30,8 +30,8 @@ export class WalletPayWebhookController {
 			}
 			for (const orderEvent of body) {
 				const { payload } = orderEvent;
-				const { externalId } = payload;
-				await this.walletPayService.processPayment(externalId);
+				const { externalId, customData } = payload;
+				await this.walletPayService.processPayment(externalId, customData);
 			}
 
 			res.status(200).send('OK');

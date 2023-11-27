@@ -78,8 +78,7 @@ export class ShortsScene {
 			await ctx.replyWithVideo({
 				source: videoStream,
 				filename
-			}
-			);
+			});
 
 			await this.analyticsService.createAnalyticShorts(
 				ctx2.from.username || ctx2.from.first_name,

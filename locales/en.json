@@ -1,73 +1,55 @@
 {
-  "Hello": {
-    "message": "Hello, this bot is designed to download video and audio from YouTube, select from the menu what you want to download."
-  },
-  "Text": {
-    "download": "Select from the menu what you want to download.",
-    "convert": "Select from the menu what you want to convert.",
-    "video": "Select from the menu what you want to do with the video.",
-    "menu": "Main menu."
-  },
-  "Shorts": {
-    "message": "Download Shorts ⌛️"
-  },
-  "Long": {
-    "message": "Download long video 🎥",
-    "restrictions": "Send a link to the video.\n⚠️ Video should not last more than 7 minutes.",
-    "duration": "⚠️ Video should not last more than 7 minutes."
-  },
-  "Audio": {
-    "message": "Video in audio 🎵",
-    "restrictions": "Send a link to the video.\n⚠️ Video should not weigh more than 50mb."
-  },
-  "VideoNote": {
-    "message": "Video to video converter 🎵",
-    "restrictions": "Send a link to the video.\n⚠️ Video should not last more than 7 minutes.",
-    "duration": "⚠️ Video should not last more than 7 minutes."
-  },
-  "Chat": {
-    "message": "Link to our chat @TWITRIS."
-  },
-  "Description": {
-    "message": "Link to our chat @TWITRIS."
-  },
-  "Buy": {
-    "message": "Link to our chat @TWITRIS."
-  },
-  "Payment": {
-    "message": ":purse: Buy"
-  },
-  "NewsLetter": {
-    "message": "Select from the menu what you want to do."
-  },
-  "ParsingChannels": {
-    "restrictions": "Send the name to search."
-  },
-  "ParsingUsers": {
-    "restrictions": "Send a link to the channel."
-  },
-  "Parsing": {
-    "message": "Choose from the menu what needs to be parsed."
-  },
-  "ChooseLang": {
-    "chooseMessage": "Choose language 🇺🇸",
-    "message": "Language 🇺🇸"
-  },
-  "Video": {
-    "shortsMessage": "Send me a link to the video."
-  },
-  "Convert": {
-    "message": "Select from the menu what you want to convert."
-  },
-  "Back": {
-    "message": "⬅️ Back"
-  },
-  "UncorrectedLink": {
-    "message": "❌ Uncorrected link"
-  },
-  "Loading": {
-    "message": "Loading...",
-    "loading": "Wait for the previous video to be installed.",
-    "error": "❌ Error"
-  }
+	"Hello": {
+		"message": "Hello, this bot is designed for downloading videos and audio from YouTube. Choose from the menu what you want to download.",
+		"greet": "😜 gospodbog.com\n😊 Благодарим за Использование.\n🤯 ☝️ ✋🖖☝️ 🤞🖖✌️\n❤️ Каждый Донат будет равномерно распределяется между Участниками Чата @TWITRIS\nМы за Чистый Интернет БЕЗ РЕКЛАМЫ."
+	},
+	"Text": {
+		"download": "Choose from the menu what you want to download.",
+		"convert": "Choose from the menu what you want to convert.",
+		"video": "Choose from the menu what you want to do with the video.",
+		"menu": "Main Menu.",
+		"message": "Choose from the menu what you want to do."
+	},
+	"Shorts": { "message": "Download Shorts ⌛️" },
+	"Long": {
+		"message": "Download Long Video 🎥",
+		"restrictions": "Send the video link.\n⚠️ The video should not exceed 7 minutes.",
+		"duration": "⚠️ The video should not exceed 7 minutes."
+	},
+	"Audio": {
+		"message": "Video to Audio",
+		"restrictions": "Send the video link.\n⚠️ The video should not exceed 50 MB."
+	},
+	"VideoNote": {
+		"message": "Video to Video Note",
+		"restrictions": "Send the video link.\n⚠️ The video should not exceed 1 minute.",
+		"duration": "⚠️ The video should not exceed 1 minute."
+	},
+	"Chat": { "message": "Link to our chat @TWITRIS." },
+	"Buy": { "message": "After payment, we will send you the file." },
+	"Donate":{
+		"error": "Неверная сумма!",
+		"restrictions": "Введите сумму доната в TON."
+	},
+	"NewsLetter": { "message": "Choose from the menu what you want to do." },
+	"ParsingChannels": { "restrictions": "Send the search query." },
+	"ParsingUsers": { "restrictions": "Send the channel link." },
+	"Parsing": { "message": "Choose from the menu what needs to be parsed." },
+	"ChooseLang": {
+		"chooseMessage": "Choose language 🇺🇸",
+		"message": "Language 🇺🇸"
+	},
+	"Video": { "shortsMessage": "Send me the video link." },
+	"Convert": { "message": "Choose from the menu what you want to convert." },
+	"Subscription":{
+		"deactivate": "Subscription is deactivated!",
+		"activate": "Subscription is activated!"
+	},
+	"Back": { "message": "⬅️ Back" },
+	"UncorrectedLink": { "message": "❌ Incorrect link" },
+	"Loading": {
+		"message": "Loading...",
+		"loading": "Please wait for the previous video to finish installing.",
+		"error": "❌ Error loading"
+	}
 }

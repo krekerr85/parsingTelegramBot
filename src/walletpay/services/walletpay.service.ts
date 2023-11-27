@@ -9,21 +9,24 @@ import * as path from 'path';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf, Context } from 'telegraf';
 import { UserService } from 'src/user/user.service';
+import { Donates } from '../models/Donate.model';
 
 @Injectable()
 export class WalletPayService {
 	constructor(
 		@InjectModel('payments')
 		private readonly paymentsModel: Model<Payments>,
+		@InjectModel('donates')
+		private readonly donatesModel: Model<Donates>,
 		private readonly userService: UserService,
 		@InjectBot() private bot: Telegraf<Context>
 	) {}
 
-	async createOrder(userId: number) {
+	async createOrder(userId: number, dollarCost: number) {
 		const existingPayment = await this.paymentsModel.findOne({
 			userId: userId,
 			status: 'success'
-		  });
+		});
 
 		if (existingPayment) {
 			this.sendArchive(userId);
@@ -33,7 +36,6 @@ export class WalletPayService {
 		const WALLET_PAY_API_KEY = process.env.WALLET_API;
 		const RETURN_URL = process.env.BOT_URL;
 		const FAIL_RETURN_URL = process.env.WALLET_PAY_URL;
-		const dollarCost = 0.01;
 		const tonCost = (await this.getPriceToncoinUSD(dollarCost)).toFixed(9);
 		const amount = {
 			currencyCode: 'TON',
@@ -42,7 +44,7 @@ export class WalletPayService {
 		const description = 'Payment for goods';
 		const returnUrl = RETURN_URL;
 		const failReturnUrl = FAIL_RETURN_URL;
-		const customData = null;
+		const customData = 'buy';
 		const externalId = uuidv4();
 		const timeoutSeconds = 3600;
 		const customerTelegramUserId = String(userId);
@@ -75,7 +77,55 @@ export class WalletPayService {
 				paymentLink,
 				userId: customerTelegramUserId
 			});
+		} catch (error) {
+			console.error('Failed to create payment link:', error);
+			return null;
+		}
+	}
 
+	async createDonateOrder(userId: number, tonCost: number) {
+		const WALLET_PAY_API_KEY = process.env.WALLET_API;
+		const RETURN_URL = process.env.BOT_URL;
+		const FAIL_RETURN_URL = process.env.WALLET_PAY_URL;
+		const amount = {
+			currencyCode: 'TON',
+			amount: String(tonCost)
+		};
+		const description = 'Payment for goods';
+		const returnUrl = RETURN_URL;
+		const failReturnUrl = FAIL_RETURN_URL;
+		const customData = 'donate';
+		const externalId = uuidv4();
+		const timeoutSeconds = 3600;
+		const customerTelegramUserId = String(userId);
+
+		const url = 'https://pay.wallet.tg/wpay/store-api/v1/order';
+		const headers = {
+			'Wpay-Store-Api-Key': WALLET_PAY_API_KEY,
+			'Content-Type': 'application/json',
+			Accept: 'application/json'
+		};
+		const data = {
+			amount,
+			description,
+			returnUrl,
+			failReturnUrl,
+			customData,
+			externalId,
+			timeoutSeconds,
+			customerTelegramUserId
+		};
+
+		try {
+			const response = await axios.post(url, data, { headers });
+			const paymentLink = response.data.data.payLink;
+
+			return await this.donatesModel.create({
+				tonCost,
+				externalId,
+				paymentLink,
+				userId: customerTelegramUserId
+			});
 		} catch (error) {
 			console.error('Failed to create payment link:', error);
 			return null;
@@ -104,16 +154,29 @@ export class WalletPayService {
 		return toncoinPriceUSD;
 	}
 
-	async processPayment(externalId: string) {
-		const order = await this.findByExternalId(externalId);
-		if (order) {
-			order.status = 'success';
-			await order.save();
+	async processPayment(externalId: string, customData: string) {
+		if (customData === 'buy') {
+			const order = await this.findByExternalId(externalId);
+			if (order) {
+				order.status = 'success';
+				await order.save();
 
-			const { userId } = order;
-			const user = await this.userService.findById(userId);
-			if (user) {
-				await this.sendArchive(user.tgId);
+				const { userId } = order;
+				const user = await this.userService.findById(userId);
+				if (user) {
+					await this.sendArchive(user.tgId);
+				}
+			}
+		} else if (customData === 'donate') {
+			const order = await this.donatesModel.findOne({ externalId });
+			if (order) {
+				order.status = 'success';
+				await order.save();
+				const { userId } = order;
+				const user = await this.userService.findById(userId);
+				if (user) {
+					await this.sendArchive(user.tgId);
+				}
 			}
 		}
 	}
@@ -139,6 +202,10 @@ export class WalletPayService {
 				console.log(err);
 			}
 		});
+	}
+
+	async sendThanks(userId: number) {
+		await this.bot.telegram.sendMessage(userId, 'Спасибо за вашу поддержку!');
 	}
 
 	async findByExternalId(externalId: string) {

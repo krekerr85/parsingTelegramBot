@@ -1,15 +1,6 @@
-import {
-	Scene,
-	SceneEnter,
-	SceneLeave,
-	Ctx,
-	Hears,
-	Action,
-	Wizard,
-	WizardStep
-} from 'nestjs-telegraf';
+import { SceneLeave, Ctx, Wizard, WizardStep } from 'nestjs-telegraf';
 import { EXAMINATION_SCENE_ID } from '../../app.constants';
-import { IContext, ScenesContext } from '../../interfaces/context.interface';
+import { IContext } from '../../interfaces/context.interface';
 import { AdminMenu } from '../../Markup/AdminMenu';
 import { WizardContext } from 'telegraf/typings/scenes';
 import { Back } from '../../Markup/Back';
@@ -35,17 +26,4 @@ export class ExaminationWizardScene {
 	async onSceneLeave(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.message'), AdminMenu(ctx));
 	}
-
-	// @ts-ignore
-	// @Hears((value, ctx: IContext) => {
-	// 	return value === ctx.i18.t('Back.message');
-	// })
-	// async onLeaveHears(@Ctx() ctx: ScenesContext): Promise<void> {
-	// 	if (ctx.session.__scenes.state.isLoading) {
-	// 		await ctx.reply('Please wait, video is loading');
-	// 		return;
-	// 	}
-	//
-	// 	await ctx.scene.leave();
-	// }
 }

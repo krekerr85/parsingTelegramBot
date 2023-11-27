@@ -1,8 +1,6 @@
 import { Scene, SceneEnter, Ctx } from 'nestjs-telegraf';
 import { CHAT_SCENE_ID } from '../../app.constants';
 import { IContext } from '../../interfaces/context.interface';
-import { ClassDownloader } from '../../utils/YouTubeDownloader.class';
-import { AnalyticsService } from '../services/analytic.service';
 import { Menu } from 'src/Markup/Menu';
 
 @Scene(CHAT_SCENE_ID)

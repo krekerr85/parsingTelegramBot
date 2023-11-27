@@ -18,10 +18,12 @@ import {
 	CHANNEL_USER_SEARCH_SCENE_ID,
 	CHAT_SCENE_ID,
 	DESCRIPTION_SCENE_ID,
+	DONATE_SCENE_ID,
 	EXAMINATION_SCENE_ID,
 	LONGS_SCENE_ID,
 	NEWSLETTER_SCENE_ID,
 	SHORTS_SCENE_ID,
+	SUBS_ACTIVATE_SCENE_ID,
 	TIKTOK_SCENE_ID,
 	VIDEO_NOTE_SCENE_ID
 } from '../app.constants';
@@ -37,6 +39,7 @@ import { ConverterMenu } from 'src/Markup/ConverterMenu';
 import { ParsingMenu } from 'src/Markup/ParsingMenu';
 import { NewsLetterMenu } from 'src/Markup/NewsLetterMenu';
 import { UserService } from 'src/user/user.service';
+import { SubsGuard } from './common/SubsGuard';
 
 @Update()
 @UseFilters(TelegrafExceptionFilter)
@@ -65,8 +68,32 @@ export class GreeterUpdate {
 		await next();
 	}
 
+	@UseGuards(SubsGuard)
 	@Start()
 	async onStart(@Ctx() ctx: IContext): Promise<void> {
+		if (ctx.session.languageCode === 'ru') {
+			await ctx.reply(
+			`😜 gospodbog.com
+
+😊 Благодарим за Использование.
+			
+🤯 ☝️ ✋🖖☝️ 🤞🖖✌️
+			
+❤️ Каждый Донат будет равномерно распределяется между Участниками Чата @TWITRIS
+			
+Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.`);
+		} else {
+			await ctx.reply(`😜 gospodbog.com
+
+😊 Thank you for using.
+
+🤯 ☝️ ✋🖖☝️ 🤞🖖✌️
+
+❤️ Each Donation will be evenly distributed among the Participants of the Chat @TWITRIS
+
+We are for a Clean Internet WITHOUT ADVERTISING.`);
+		}
+
 		await ctx.reply(ctx.i18.t('ChooseLang.chooseMessage'), ChooseLang());
 	}
 
@@ -92,6 +119,7 @@ export class GreeterUpdate {
 	}
 
 	// @ts-ignore
+
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('ChooseLang.message');
 	})
@@ -156,6 +184,13 @@ export class GreeterUpdate {
 	}
 
 	@UseGuards(AdminGuard)
+	@Hears('Активация подписки 📄')
+	async onSubscription(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(SUBS_ACTIVATE_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(AdminGuard)
 	@Hears('Сделать рассылку 👥')
 	async onNewsletter(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(NEWSLETTER_SCENE_ID);
@@ -168,72 +203,82 @@ export class GreeterUpdate {
 		await ctx.scene.enter(EXAMINATION_SCENE_ID);
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('TikTok 💃')
 	async onTikTok(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(TIKTOK_SCENE_ID);
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Парсинг')
 	async onParse(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Parsing.message'), ParsingMenu(ctx));
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Видео ▶️')
 	async onVideo(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.video'), VideoMenu(ctx));
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Скачать')
 	async onDownLoad(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.download'), DownLoadMenu(ctx));
 		return;
 	}
+	@UseGuards(SubsGuard)
 	@Hears('Конвертер')
 	async onConvert(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Convert.message'), ConverterMenu(ctx));
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Каналы/Чаты')
 	async onСhannels(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(CHANNELS_SEARCH_SCENE_ID);
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Участники')
 	async onUsers(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(CHANNEL_USER_SEARCH_SCENE_ID);
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Рассылка')
 	async onNewsLetter(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('NewsLetter.message'), NewsLetterMenu(ctx));
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Чат')
 	async onChat(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(CHAT_SCENE_ID);
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Описание')
 	async onDescription(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(DESCRIPTION_SCENE_ID);
 		return;
 	}
-
+	@UseGuards(SubsGuard)
 	@Hears('Купить')
 	async onBuy(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(BUY_SCENE_ID);
 		return;
 	}
 
+	@UseGuards(SubsGuard)
+	@Hears('Донат')
+	async onDonate(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(DONATE_SCENE_ID);
+		return;
+	}
+
+
+	@UseGuards(SubsGuard)
 	@On('text')
 	async onDownloadBack(@Ctx() ctx: IContext) {
 		await ctx.reply(ctx.i18.t('Text.menu'), Menu(ctx));

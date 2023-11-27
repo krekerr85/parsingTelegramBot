@@ -8,6 +8,7 @@ export const Menu = (ctx: IContext): Markup.Markup<any> => {
 		[
 			Markup.button.callback(ctx.i18.t('Видео ▶️'), 'tikTok'),
 			Markup.button.callback(ctx.i18.t('Парсинг'), 'parsing'),
+			Markup.button.callback(ctx.i18.t('Донат'), 'donate'),
 			Markup.button.callback(ctx.i18.t('ChooseLang.message'), 'chooseLang'),
 			Markup.button.callback(ctx.i18.t('Чат'), 'chat'),
 			

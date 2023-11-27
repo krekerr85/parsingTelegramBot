@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { InjectBot } from 'nestjs-telegraf';
 import { Admin } from 'src/models/Admin.model';
 import { User } from 'src/models/User.model';
+import { Context, Telegraf } from 'telegraf';
 
 @Injectable()
 export class UserService {
 	constructor(
 		@InjectModel('user') private userModel: Model<User>,
-		@InjectModel('admin') private adminModel: Model<Admin>
+		@InjectModel('admin') private adminModel: Model<Admin>,
+		@InjectBot() private bot: Telegraf<Context>
 	) {}
 
 	async findOne(tgId: number): Promise<User> {
@@ -44,5 +47,25 @@ export class UserService {
 	async isAdmin(tgId: number): Promise<boolean> {
 		const admin = await this.adminModel.findOne({ tgId }).exec();
 		return !!admin;
+	}
+
+	async isSub(tgId: number): Promise<boolean> {
+		try{
+			const member = await this.bot.telegram.getChatMember('@expert_tm', tgId);
+			if (
+				member.status != 'member' &&
+				member.status != 'administrator' &&
+				member.status != 'creator'
+			) {
+				return false;
+			} else {
+				return true;
+			}
+		}catch(e){
+			console.log(e)
+			return false;
+		}
+		
+
 	}
 }
