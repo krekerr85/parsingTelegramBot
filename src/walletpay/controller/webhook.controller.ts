@@ -1,7 +1,6 @@
-import { Body, Controller, Post, Res, Headers, Req, Ip } from '@nestjs/common';
+import { Body, Controller, Post, Res, Headers } from '@nestjs/common';
 import { Response} from 'express';
 import { WalletPayService } from '../services/walletpay.service';
-import { RealIP } from 'nestjs-real-ip';
 @Controller('walletpay')
 export class WalletPayWebhookController {
 	constructor(private readonly walletPayService: WalletPayService) {}
@@ -11,11 +10,11 @@ export class WalletPayWebhookController {
 		@Headers() headers: Record<string, string>,
 		@Body() body: any[],
 		@Res() res: Response,
-		@RealIP() ip: string
 	) {
-		console.log(ip)
+		const clientIP = headers['x-real-ip'];
 		const allowedIPs = ['172.255.248.12', '172.255.248.29'];
-		if (!allowedIPs.includes(ip)) {
+		console.log(clientIP)
+		if (!allowedIPs.includes(clientIP)) {
 			res.status(403).send('Forbidden');
 			return;
 		  }
