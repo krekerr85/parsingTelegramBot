@@ -161,21 +161,21 @@ export class WalletPayService {
 				order.status = 'success';
 				await order.save();
 
-				const { userId } = order;
-				const user = await this.userService.findById(userId);
+				const userId = Number(order.userId);
+				const user = await this.userService.findOne(userId);
 				if (user) {
 					await this.sendArchive(user.tgId);
 				}
 			}
 		} else if (customData === 'donate') {
-			const order = await this.donatesModel.findOne({ externalId });
+			const order = await this.donatesModel.findOne({userId: externalId});
 			if (order) {
 				order.status = 'success';
 				await order.save();
 				const { userId } = order;
-				const user = await this.userService.findById(userId);
+				const user = await this.userService.findOne(userId);
 				if (user) {
-					await this.sendArchive(user.tgId);
+					await this.sendThanks(user.tgId);
 				}
 			}
 		}

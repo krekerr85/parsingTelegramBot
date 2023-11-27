@@ -7,7 +7,7 @@ export class Donates extends Document {
 	externalId: string;
 
 	@Prop({ required: true, type: String })
-	userId: string;
+	userId: number;
 
 	@Prop({ required: true, type: Date, default: Date.now })
 	createdAt: Date;
