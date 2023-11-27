@@ -12,6 +12,7 @@ export class WalletPayWebhookController {
 		@Body() body: any[],
 		@Res() res: Response
 	) {
+		console.log(body)
 		try {
 			const secretKey = process.env.WALLET_API;
 			const signatureHeader = headers['walletpay-signature'];
@@ -33,7 +34,7 @@ export class WalletPayWebhookController {
 				const { externalId, customData } = payload;
 				await this.walletPayService.processPayment(externalId, customData);
 			}
-
+			
 			res.status(200).send('OK');
 		} catch (error) {
 			console.log(error);
