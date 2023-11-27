@@ -20,21 +20,6 @@ export class WalletPayWebhookController {
 		  }
 		console.log(body)
 		try {
-			const secretKey = process.env.WALLET_API;
-			const signatureHeader = headers['walletpay-signature'];
-			const timestampHeader = headers['walletpay-timestamp'];
-			const requestMethod = 'POST';
-			const requestPath = '/walletpay';
-			const requestBody = JSON.stringify(body);
-			const timestamp = Math.floor(Number(timestampHeader));
-			const hmac = crypto.createHmac('sha256', secretKey);
-			hmac.update(
-				`${requestMethod}.${requestPath}.${timestamp}.${requestBody}`
-			);
-			const calculatedSignature = hmac.digest('base64');
-			if (signatureHeader !== calculatedSignature) {
-				throw new Error('Invalid signature');
-			}
 			for (const orderEvent of body) {
 				const { payload } = orderEvent;
 				const { externalId, customData } = payload;
