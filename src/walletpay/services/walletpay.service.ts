@@ -183,7 +183,7 @@ export class WalletPayService {
 	async sendArchive(userId: number) {
 		const archiveFilePath = path.join(
 			__dirname,
-			'../../../static/program/twitris_bot.zip'
+			'../../../static/program/twitris.zip'
 		);
 		fs.readFile(archiveFilePath, {}, (err, data) => {
 			if (!err) {
