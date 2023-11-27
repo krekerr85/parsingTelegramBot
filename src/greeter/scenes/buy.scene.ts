@@ -50,7 +50,7 @@ export class BuyScene {
 
 	@SceneLeave()
 	async onSceneLeave(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('Buy.message'), Menu(ctx));
+		await ctx.reply(ctx.i18.t('Text.menu'), Menu(ctx));
 	}
 
 	@Hears('/restart')

@@ -29,7 +29,7 @@ export class WalletPayService {
 		});
 
 		if (existingPayment) {
-			this.sendArchive(userId);
+			await this.sendArchive(userId);
 			return existingPayment;
 		}
 
@@ -168,7 +168,7 @@ export class WalletPayService {
 				}
 			}
 		} else if (customData === 'donate') {
-			const order = await this.donatesModel.findOne({externalId});
+			const order = await this.donatesModel.findOne({ externalId });
 			if (order) {
 				order.status = 'success';
 				await order.save();
@@ -185,14 +185,14 @@ export class WalletPayService {
 			__dirname,
 			'../../../static/program/twitris.zip'
 		);
-		fs.readFile(archiveFilePath, {}, (err, data) => {
+		fs.readFile(archiveFilePath, {}, async (err, data) => {
 			if (!err) {
 				console.log('received data: ' + data);
-				this.bot.telegram.sendDocument(
+				await this.bot.telegram.sendDocument(
 					userId,
 					{
 						source: data,
-						filename: 'twitris_bot.zip'
+						filename: 'twitris.zip'
 					},
 					{
 						caption: 'Спасибо за покупку!'
