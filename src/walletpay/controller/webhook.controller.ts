@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res, Headers } from '@nestjs/common';
+import { Body, Controller, Post, Res, Headers, Req, Ip } from '@nestjs/common';
 import { Response } from 'express';
 import { WalletPayService } from '../services/walletpay.service';
 import * as crypto from 'crypto';
@@ -10,8 +10,14 @@ export class WalletPayWebhookController {
 	async handleOrderEvent(
 		@Headers() headers: Record<string, string>,
 		@Body() body: any[],
-		@Res() res: Response
+		@Res() res: Response,
+		@Ip() ip,
 	) {
+		const allowedIPs = ['172.255.248.12', '172.255.248.29'];
+		if (!allowedIPs.includes(ip)) {
+			res.status(403).send('Forbidden');
+			return;
+		  }
 		console.log(body)
 		try {
 			const secretKey = process.env.WALLET_API;
