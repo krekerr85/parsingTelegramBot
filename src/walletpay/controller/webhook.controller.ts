@@ -13,12 +13,13 @@ export class WalletPayWebhookController {
 		@Res() res: Response,
 		@Ip() ip,
 	) {
+		console.log(body, ip)
 		const allowedIPs = ['172.255.248.12', '172.255.248.29'];
 		if (!allowedIPs.includes(ip)) {
 			res.status(403).send('Forbidden');
 			return;
 		  }
-		console.log(body)
+		
 		try {
 			for (const orderEvent of body) {
 				const { payload } = orderEvent;
