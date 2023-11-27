@@ -168,7 +168,7 @@ export class WalletPayService {
 				}
 			}
 		} else if (customData === 'donate') {
-			const order = await this.donatesModel.findOne({userId: externalId});
+			const order = await this.donatesModel.findOne({externalId});
 			if (order) {
 				order.status = 'success';
 				await order.save();
