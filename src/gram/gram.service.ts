@@ -8,7 +8,7 @@ export class GramService {
 	private apiId = 21530097;
 	private apiHash = '66dc2c88fbf0b1b5a3dbec15b1784252';
 	private stringSession = new StringSession(
-		'1AgAOMTQ5LjE1NC4xNjcuNDEBu1yBnt4GvAMLIXNmB7iFPS9YEX3euh0X4SmiREFRx1mxbuU+t4FZsPKN/9Zj+mw7e9bXW8V0O3rwkjyKSUSfjdboc6SNDjeoFTM3Ky/kFf1KTG2fuM5r1VFy4gCQ7sXvT5oiETuhdPd7jVjZCFznxctV0Nbxn3TVEi8ZofodXcC5t/hhH7hLAq6nY3j2zbwv37VpGY7HujcteZXMP2UIcITfendPO/CIz2959UmRjR/N1+yyjZmnjH+8xQz43zQZzzhCFyTdpETOCCkjJjMYHWcmrDWSoqHoiiIVviOb7A7QwqNyFzRmCY3qfE/Gtev6fhLwJrWBpbqcd8llFdsswWQ='
+		process.env.SESSION
 	);
 	private client;
 	constructor() {

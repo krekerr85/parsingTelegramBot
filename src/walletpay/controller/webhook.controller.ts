@@ -1,20 +1,19 @@
 import { Body, Controller, Post, Res, Headers, Req, Ip } from '@nestjs/common';
-import { Response, Request } from 'express';
+import { Response} from 'express';
 import { WalletPayService } from '../services/walletpay.service';
-import * as crypto from 'crypto';
-
+import { RealIP } from 'nestjs-real-ip';
 @Controller('walletpay')
 export class WalletPayWebhookController {
 	constructor(private readonly walletPayService: WalletPayService) {}
 	@Post()
+	
 	async handleOrderEvent(
 		@Headers() headers: Record<string, string>,
 		@Body() body: any[],
 		@Res() res: Response,
-		request: Request,
+		@RealIP() ip: string
 	) {
-		const { ip, method, originalUrl } = request;
-		console.log(body, ip)
+		console.log(ip)
 		const allowedIPs = ['172.255.248.12', '172.255.248.29'];
 		if (!allowedIPs.includes(ip)) {
 			res.status(403).send('Forbidden');
