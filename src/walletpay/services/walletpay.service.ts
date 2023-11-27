@@ -210,6 +210,6 @@ export class WalletPayService {
 
 	async findByExternalId(externalId: string) {
 		const walletPay = await this.paymentsModel.findOne({ externalId });
-		return walletPay.toObject();
+		return walletPay;
 	}
 }
