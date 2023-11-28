@@ -15,7 +15,7 @@ export class BuyScene {
 	): Promise<void> {
 		const userId = ctx.from?.id;
 		if (userId) {
-			const order = await this.walletPayService.createOrder(userId, 0.01);
+			const order = await this.walletPayService.createOrder(userId, 70);
 			if (!order) {
 				await ctx.reply('Ошибка при создании заказа.');
 				await ctx2.scene.leave();
