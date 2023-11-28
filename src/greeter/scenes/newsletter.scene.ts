@@ -16,6 +16,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../../models/User.model';
 import { Markup } from 'telegraf';
+import { markdownV2Format } from 'src/utils/format';
 
 @Scene(NEWSLETTER_SCENE_ID)
 export class NewsletterScene {
@@ -51,7 +52,9 @@ export class NewsletterScene {
 	) {
 		ctx.session.__scenes.state.message = message;
 		await ctx.reply(
-			`Ваше сообщение \\- "${message}"\n⚠️ Вы действительно хотите его отправить? ⚠️`,
+			`Ваше сообщение \\- '${markdownV2Format(
+				message
+			)}'\n⚠️ Вы действительно хотите его отправить? ⚠️`,
 			{
 				reply_markup: {
 					inline_keyboard: [
@@ -74,8 +77,8 @@ export class NewsletterScene {
 
 	@Action('send')
 	async onSend(@Ctx() ctx: ScenesContext): Promise<void> {
+		const users = await this.userModel.find();
 		try {
-			const users = await this.userModel.find();
 			await Promise.all(
 				users.map(async (user, index) => {
 					if (index % 25 === 0) {
@@ -87,18 +90,18 @@ export class NewsletterScene {
 					);
 				})
 			);
-			await ctx.answerCbQuery('Отправлено');
-			await ctx.deleteMessage();
-			await ctx.reply(
-				'Отправте сообщение для рассылки',
-				Markup.keyboard([Markup.button.callback('⬅\uFE0F Назад', 'cancel')], {
-					columns: 2,
-					wrap: (btn, index, currentRow) => index % 2 !== 0
-				}).resize()
-			);
 		} catch (err) {
-			await ctx.reply('Ошибка при отправке рассылки');
+			console.log(err);
 		}
+		await ctx.answerCbQuery('Отправлено');
+		await ctx.deleteMessage();
+		await ctx.reply(
+			'Отправте сообщение для рассылки',
+			Markup.keyboard([Markup.button.callback('⬅\uFE0F Назад', 'cancel')], {
+				columns: 2,
+				wrap: (btn, index, currentRow) => index % 2 !== 0
+			}).resize()
+		);
 	}
 
 	@Action('cancel')
