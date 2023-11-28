@@ -22,7 +22,8 @@
 	"VideoNote": {
 		"message": "Video to Video Note",
 		"restrictions": "Send the video link.\nThe video should not exceed 1 minute.",
-		"duration": "The video should not exceed 1 minute."
+		"duration": "The video should not exceed 1 minute.",
+		"invalidFileType": "Видео должно быть в формате mp4."
 	},
 	"Chat": { "message": "Link to our chat @TWITRIS." },
 	"Buy": { "message": "After payment, we will send you the file." },

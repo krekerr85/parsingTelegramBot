@@ -2,7 +2,7 @@ import * as ytdl from 'ytdl-core';
 import { Readable } from 'stream';
 import { v4 as uuidv4 } from 'uuid';
 import * as path from 'path';
-import * as fs from 'fs'
+import * as fs from 'fs';
 const ffmpegStatic = require('ffmpeg-static');
 const ffmpeg = require('fluent-ffmpeg');
 
@@ -80,34 +80,18 @@ export class ClassDownloader {
 		return validQueryDomains.some(domain => url.includes(domain));
 	}
 
-	public processVideoStream = async (
-		videoStream: Readable,
-		filename: string
-	) => {
-		const processedVideoPath = `../static/videos/${filename}.mp4`;
-		return new Promise<Readable>((resolve, reject) => {
+	public processVideoStream = async (filePath: string, filename: string, minSide: number) => {
+		return new Promise<Buffer>((resolve, reject) => {
 			//@ts-ignore
-			// const ffmpegInstance = ffmpeg();
-			// console.log(ffmpegInstance)
-			ffmpeg()
-				.input(videoStream).size('640x640').autopad()
-				.saveToFile(`src/static/videos/${filename}.mp4`)
+			ffmpeg(filePath)
+				.videoFilter(`crop=${minSide}:${minSide}`)
+				.saveToFile(`src/static/videos/${filename}`)
 				.on('end', () => {
 					console.log('Video processing completed!');
-
-					// Read the processed video from the file system
-					//console.log(path.join(__dirname,'../static/videos/audio.mp4'))
-					const processedVideoBuffer = fs.readFileSync(path.join(__dirname,`../../src/static/videos/${filename}.mp4`));
-
-					// Send the processed video
-					// Replace the following line with your actual code to send the processed video
-
-					// Delete the processed video file
-					
-					const processedVideoStream = new Readable();
-					processedVideoStream.push(processedVideoBuffer);
-					processedVideoStream.push(null);
-					resolve(processedVideoStream);
+					const processedVideoBuffer = fs.readFileSync(
+						path.join(__dirname, `../../src/static/videos/${filename}`)
+					);
+					resolve(processedVideoBuffer);
 				})
 				.on('error', error => {
 					console.error('Error processing video:', error);

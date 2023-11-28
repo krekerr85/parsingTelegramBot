@@ -74,7 +74,7 @@ export class LongScene {
 
 			const isDuration = await this.downloaderService.checkVideoDuration(
 				message,
-				420
+				60*15
 			);
 
 			if (!isDuration) {

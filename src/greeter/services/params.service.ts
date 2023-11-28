@@ -16,7 +16,6 @@ export class ParamsService {
 		return this.paramsModel.findOne();
 	}
 	async updateParams(newParams: Partial<Params>): Promise<Params> {
-		console.log('123')
 		const params = await this.paramsModel.findOneAndUpdate({}, newParams, {
 			upsert: true,
 			new: true

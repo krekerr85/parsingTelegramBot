@@ -263,6 +263,12 @@ export class GreeterUpdate {
 		return;
 	}
 
+	@UseGuards(SubsGuard)
+	@On('animation')
+	async onVideoSend(@Ctx() ctx: IContext) {
+		await ctx.reply('Download', Menu(ctx));
+		return;
+	}
 
 	@UseGuards(SubsGuard)
 	@On('text')

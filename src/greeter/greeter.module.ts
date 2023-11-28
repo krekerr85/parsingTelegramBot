@@ -29,6 +29,7 @@ import { ParamsSchema } from 'src/models/Params.model';
 import { ParamsService } from './services/params.service';
 import { SubsActivateScene } from './scenes/subsActivate.scene';
 import { DonateScene } from './scenes/donate.scene';
+import { VideoService } from './services/video.service';
 
 @Module({
 	imports: [
@@ -68,6 +69,7 @@ import { DonateScene } from './scenes/donate.scene';
 	],
 	providers: [
 		ChannelsService,
+		VideoService,
 		GreeterUpdate,
 		ShortsScene,
 		TikTocScene,

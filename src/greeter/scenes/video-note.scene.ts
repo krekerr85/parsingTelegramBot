@@ -16,12 +16,18 @@ import { AnalyticsService } from '../services/analytic.service';
 import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
 import * as fs from 'fs';
 import * as path from 'path';
+import { ConverterMenu } from 'src/Markup/ConverterMenu';
+import { Telegraf } from 'telegraf';
+import { VideoService } from '../services/video.service';
 
 @Scene(VIDEO_NOTE_SCENE_ID)
 export class VideoNoteScene {
 	private downloaderService: ClassDownloader = new ClassDownloader();
 
-	constructor(private analyticsService: AnalyticsService) {}
+	constructor(
+		private analyticsService: AnalyticsService,
+		private videoService: VideoService
+	) {}
 
 	@SceneEnter()
 	async onSceneEnter(@Ctx() ctx: IContext): Promise<void> {
@@ -30,7 +36,7 @@ export class VideoNoteScene {
 
 	@SceneLeave()
 	async onSceneLeave(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('Text.download'), DownLoadMenu(ctx));
+		await ctx.reply(ctx.i18.t('Text.download'), ConverterMenu(ctx));
 	}
 	//
 	// @ts-ignore
@@ -51,21 +57,14 @@ export class VideoNoteScene {
 		await ctx.scene.leave();
 	}
 
-	@On('text')
-	async onDownloadShorts(
+	@On('video')
+	async onVideoCircle(
 		@Ctx() ctx: ScenesContext,
 		@Ctx() ctx2: IContext,
-		@Message('text') message: string
+		@Message('video') video
 	) {
 		if (ctx.session.__scenes.state.isLoading) {
 			await ctx.reply(ctx2.i18.t('Loading.loading'));
-			return;
-		}
-
-		const isUrl = this.downloaderService.checkUrl(message);
-
-		if (!isUrl) {
-			await ctx.reply(ctx2.i18.t('UncorrectedLink.message'), Back(ctx2));
 			return;
 		}
 
@@ -74,40 +73,44 @@ export class VideoNoteScene {
 		try {
 			ctx.session.__scenes.state.isLoading = true;
 
-			const isDuration = await this.downloaderService.checkVideoDuration(
-				message,
-				420
-			);
-
-			if (!isDuration) {
+			const duration = video.duration;
+			const { width, height } = video;
+			const minSide = Math.min(width, height);
+			if (duration > 60) {
 				await ctx.reply(ctx2.i18.t('VideoNote.duration'), Back(ctx2));
 				return;
 			}
-
-			const { videoStream } =
-				await this.downloaderService.downloadVideo(message);
-
-			const filename = `${ctx.from.id}_${uuidv4()}`;
-			const proccesVideo = await this.downloaderService.processVideoStream(
-				videoStream,
-				filename
+			const { filePath, fileName } = await this.videoService.downloadVideo(
+				video.file_id
 			);
 
-			const res = await ctx.sendVideoNote({
+			const proccesVideo = await this.downloaderService.processVideoStream(
+				filePath,
+				fileName,
+				minSide
+			);
+
+			await ctx.sendVideoNote({
 				source: proccesVideo,
-				filename
+				filename: fileName
 			});
 
-			await this.analyticsService.createAnalyticLong(
-				ctx2.from.username || ctx2.from.first_name,
-				message
-			);
 			const directory = 'src/static/videos';
+			const directoryDownload = 'static/video';
 			fs.readdir(directory, (err, files) => {
 				if (err) throw err;
 
 				for (const file of files) {
 					fs.unlink(path.join(directory, file), err => {
+						if (err) throw err;
+					});
+				}
+			});
+			fs.readdir(directoryDownload, (err, files) => {
+				if (err) throw err;
+
+				for (const file of files) {
+					fs.unlink(path.join(directoryDownload, file), err => {
 						if (err) throw err;
 					});
 				}
@@ -121,5 +124,90 @@ export class VideoNoteScene {
 			ctx.session.__scenes.state.isLoading = false;
 			await ctx.deleteMessage(loadingMessage.message_id);
 		}
+	}
+
+	@On('animation')
+	async onAnimationCircle(
+		@Ctx() ctx: ScenesContext,
+		@Ctx() ctx2: IContext,
+		@Message('animation') animation
+	) {
+		if (ctx.session.__scenes.state.isLoading) {
+			await ctx.reply(ctx2.i18.t('Loading.loading'));
+			return;
+		}
+
+		const loadingMessage = await ctx.reply(ctx2.i18.t('Loading.message'));
+
+		try {
+			ctx.session.__scenes.state.isLoading = true;
+
+			const duration = animation.duration;
+			const { width, height } = animation;
+			const minSide = Math.min(width, height);
+			console.log(animation);
+			if (duration > 60) {
+				await ctx.reply(ctx2.i18.t('VideoNote.duration'), Back(ctx2));
+				return;
+			}
+			const { filePath, fileName } = await this.videoService.downloadVideo(
+				animation.file_id
+			);
+
+			const proccesVideo = await this.downloaderService.processVideoStream(
+				filePath,
+				fileName,
+				minSide
+			);
+
+			await ctx.sendVideoNote({
+				source: proccesVideo,
+				filename: fileName
+			});
+
+			const directory = 'src/static/videos';
+			const directoryDownload = 'static/video';
+			fs.readdir(directory, (err, files) => {
+				if (err) throw err;
+
+				for (const file of files) {
+					fs.unlink(path.join(directory, file), err => {
+						if (err) throw err;
+					});
+				}
+			});
+			fs.readdir(directoryDownload, (err, files) => {
+				if (err) throw err;
+
+				for (const file of files) {
+					fs.unlink(path.join(directoryDownload, file), err => {
+						if (err) throw err;
+					});
+				}
+			});
+			return;
+		} catch (err) {
+			console.log(err);
+			await this.analyticsService.createError('video-note');
+			await ctx.reply(ctx2.i18.t('Loading.error'));
+		} finally {
+			ctx.session.__scenes.state.isLoading = false;
+			await ctx.deleteMessage(loadingMessage.message_id);
+		}
+	}
+
+	@On('document')
+	async onFileCircle(
+		@Ctx() ctx: ScenesContext,
+		@Ctx() ctx2: IContext,
+		@Message('document') document
+	) {
+		if (ctx.session.__scenes.state.isLoading) {
+			await ctx.reply(ctx2.i18.t('Loading.loading'));
+			return;
+		}
+		await ctx.reply(ctx2.i18.t('VideoNote.invalidFileType'));
+				return;
+		
 	}
 }
