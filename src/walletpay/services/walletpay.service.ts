@@ -46,7 +46,7 @@ export class WalletPayService {
 		const failReturnUrl = FAIL_RETURN_URL;
 		const customData = 'buy';
 		const externalId = uuidv4();
-		const timeoutSeconds = 3600;
+		const timeoutSeconds = 60;
 		const customerTelegramUserId = String(userId);
 
 		const url = 'https://pay.wallet.tg/wpay/store-api/v1/order';
@@ -96,7 +96,7 @@ export class WalletPayService {
 		const failReturnUrl = FAIL_RETURN_URL;
 		const customData = 'donate';
 		const externalId = uuidv4();
-		const timeoutSeconds = 3600;
+		const timeoutSeconds = 60;
 		const customerTelegramUserId = String(userId);
 
 		const url = 'https://pay.wallet.tg/wpay/store-api/v1/order';
