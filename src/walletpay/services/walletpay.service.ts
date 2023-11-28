@@ -29,7 +29,7 @@ export class WalletPayService {
 		});
 
 		if (existingPayment) {
-			await this.sendArchive(userId);
+			await this.sendArchive(userId, existingPayment.messageId);
 			return existingPayment;
 		}
 
@@ -180,8 +180,7 @@ export class WalletPayService {
 				const userId = Number(order.userId);
 				const user = await this.userService.findOne(userId);
 				if (user) {
-					await this.sendArchive(user.tgId);
-					await this.bot.telegram.deleteMessage(userId, order.messageId);
+					await this.sendArchive(user.tgId, order.messageId);
 				}
 			}
 		} else if (customData === 'donate') {
@@ -192,8 +191,9 @@ export class WalletPayService {
 				const { userId } = order;
 				const user = await this.userService.findOne(userId);
 				if (user) {
-					await this.sendThanks(user.tgId);
-					await this.bot.telegram.deleteMessage(userId, order.messageId);
+					await this.bot.telegram.sendMessage(userId, 'Оплата прошла успешно! Спасибо за вашу поддержку!', {
+						reply_to_message_id: order.messageId
+					});
 				}
 			}
 		}
@@ -232,7 +232,7 @@ export class WalletPayService {
 		}
 	}
 
-	async sendArchive(userId: number) {
+	async sendArchive(userId: number, messageId: number) {
 		const archiveFilePath = path.join(
 			__dirname,
 			'../../../static/program/twitris.zip'
@@ -247,7 +247,8 @@ export class WalletPayService {
 						filename: 'twitris.zip'
 					},
 					{
-						caption: 'Спасибо за покупку!'
+						caption: 'Спасибо за покупку!',
+						reply_to_message_id: messageId
 					}
 				);
 			} else {
