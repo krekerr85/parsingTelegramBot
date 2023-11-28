@@ -8,6 +8,7 @@ export const AdminMenu = (ctx: IContext): Markup.Markup<any> => {
 			Markup.button.callback('Аналитика', 'analytics'),
 			Markup.button.callback('Сделать рассылку', 'users'),
 			Markup.button.callback('Проверка на подписку', 'channels'),
+			Markup.button.callback('Установить цену программы', 'programmPrice'),
 			subscription ? Markup.button.callback('Деактивация подписки', 'subscription') : Markup.button.callback('Активация подписки', 'subscription'),
 			Markup.button.callback(ctx.i18.t('Back.message'), 'cancel')
 		],

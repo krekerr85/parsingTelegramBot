@@ -4,7 +4,7 @@ import { WalletPayService } from './services/walletpay.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from 'src/user/user.module';
 import { WalletPayWebhookController } from './controller/webhook.controller';
-import { DonatesSchema } from './models/Donate.model';
+import { DonatesSchema } from './models/Donates.model';
 
 @Module({
 	imports: [

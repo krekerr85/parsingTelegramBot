@@ -2,11 +2,14 @@ import { Scene, SceneEnter, SceneLeave, Ctx, Hears } from 'nestjs-telegraf';
 import { BUY_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { WalletPayService } from '../../walletpay/services/walletpay.service';
-import { Markup } from 'telegraf';
 import { Menu } from 'src/Markup/Menu';
+import { ParamsService } from '../services/params.service';
 @Scene(BUY_SCENE_ID)
 export class BuyScene {
-	constructor(private walletPayService: WalletPayService) {}
+	constructor(
+		private walletPayService: WalletPayService,
+		private readonly paramsService: ParamsService
+	) {}
 
 	@SceneEnter()
 	async onSceneEnter(
@@ -15,7 +18,11 @@ export class BuyScene {
 	): Promise<void> {
 		const userId = ctx.from?.id;
 		if (userId) {
-			const order = await this.walletPayService.createOrder(userId, 70);
+			const { programmPrice } = await this.paramsService.getParams();
+			const order = await this.walletPayService.createOrder(
+				userId,
+				programmPrice
+			);
 			if (!order) {
 				await ctx.reply('Ошибка при создании заказа.');
 				await ctx2.scene.leave();

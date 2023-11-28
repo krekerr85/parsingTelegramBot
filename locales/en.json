@@ -6,50 +6,54 @@
 		"download": "Choose from the menu what you want to download.",
 		"convert": "Choose from the menu what you want to convert.",
 		"video": "Choose from the menu what you want to do with the video.",
-		"menu": "Main Menu.",
+		"menu": "Main menu.",
 		"message": "Choose from the menu what you want to do."
 	},
-	"Shorts": { "message": "Download Shorts" },
+	"Shorts": { "message": "Shorts" },
 	"Long": {
-		"message": "Download Long Video",
-		"restrictions": "Send the video link.\nThe video should not exceed 7 minutes.",
-		"duration": "The video should not exceed 7 minutes."
+		"message": "Youtube",
+		"restrictions": "Send a link to the video.\nThe video should not exceed 15 minutes.",
+		"duration": " The video should not exceed 7 minutes."
 	},
 	"Audio": {
 		"message": "Video to Audio",
-		"restrictions": "Send the video link.\nThe video should not exceed 50 MB."
+		"restrictions": "Send a link to the video.\nThe video should not exceed 50 MB."
 	},
 	"VideoNote": {
 		"message": "Video to Video Note",
-		"restrictions": "Send the video link.\nThe video should not exceed 1 minute.",
+		"restrictions": "Send a video.\nThe video should not exceed 1 minute.",
 		"duration": "The video should not exceed 1 minute.",
-		"invalidFileType": "Видео должно быть в формате mp4."
+		"invalidFileType": "The video should be in mp4 format."
 	},
-	"Chat": { "message": "Link to our chat @TWITRIS." },
+	"Chat": {
+		"message": "Link to our chat:",
+		"needDonate": "To access the chat, you need to make a purchase or donation!"
+	},
 	"Buy": { "message": "After payment, we will send you the file." },
-	"Donate":{
-		"error": "Неверная сумма!",
-		"restrictions": "Введите сумму доната в TON."
+	"Donate": {
+		"error": "Invalid amount!",
+		"restrictions": "Choose the Donation Amount in TON\nEach Donate will be distributed among the Chat Participants @TWITRIS Join."
 	},
 	"NewsLetter": { "message": "Choose from the menu what you want to do." },
-	"ParsingChannels": { "restrictions": "Send the search query." },
-	"ParsingUsers": { "restrictions": "Send the channel link." },
-	"Parsing": { "message": "Choose from the menu what needs to be parsed." },
-	"ChooseLang": {
-		"chooseMessage": "Choose language 🇺🇸",
-		"message": "Language 🇺🇸"
+	"ParsingChannels": { "restrictions": "Send a search query." },
+	"ParsingUsers": { "restrictions": "Send a link to the chat." },
+	"Parsing": { "message": "Choose from the menu what you need to parse." },
+	"Price": {
+		"set": "Write a new price for the program in TON.",
+		"error": "Invalid amount!"
 	},
-	"Video": { "shortsMessage": "Send me the video link." },
+	"ChooseLang": { "chooseMessage": "Choose a language", "message": "Language" },
+	"Video": { "shortsMessage": "Send me a video link." },
 	"Convert": { "message": "Choose from the menu what you want to convert." },
-	"Subscription":{
-		"deactivate": "Subscription is deactivated!",
-		"activate": "Subscription is activated!"
+	"Subscription": {
+		"deactivate": "Subscription has been deactivated!",
+		"activate": "Subscription has been activated!"
 	},
 	"Back": { "message": "⬅️ Back" },
 	"UncorrectedLink": { "message": "❌ Incorrect link" },
 	"Loading": {
 		"message": "Loading...",
-		"loading": "Please wait for the previous video to finish installing.",
-		"error": "❌ Error loading"
+		"loading": "Wait for the previous video to finish installing.",
+		"error": "❌ Download error"
 	}
 }

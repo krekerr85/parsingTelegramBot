@@ -9,7 +9,7 @@ import * as path from 'path';
 import { InjectBot } from 'nestjs-telegraf';
 import { Telegraf, Context, Markup } from 'telegraf';
 import { UserService } from 'src/user/user.service';
-import { Donates } from '../models/Donate.model';
+import { Donates } from '../models/Donates.model';
 
 @Injectable()
 export class WalletPayService {
@@ -22,6 +22,26 @@ export class WalletPayService {
 		@InjectBot() private bot: Telegraf<Context>
 	) {}
 
+	async checkPayment(userId: number) {
+		const payment = await this.paymentsModel.findOne({
+			userId: userId,
+			status: 'success'
+		});
+		if (payment) {
+			return true;
+		}
+
+		const donatePayments = await this.donatesModel.find({
+			userId: userId,
+			status: 'success'
+		});
+		if (donatePayments.length > 0) {
+			return true;
+		}
+		return false;
+
+	}
+	
 	async createOrder(userId: number, dollarCost: number) {
 		const existingPayment = await this.paymentsModel.findOne({
 			userId: userId,
@@ -263,4 +283,6 @@ export class WalletPayService {
 		const walletPay = await this.paymentsModel.findOne({ externalId });
 		return walletPay;
 	}
+
+	
 }

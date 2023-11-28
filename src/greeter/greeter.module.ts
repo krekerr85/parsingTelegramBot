@@ -30,6 +30,7 @@ import { ParamsService } from './services/params.service';
 import { SubsActivateScene } from './scenes/subsActivate.scene';
 import { DonateScene } from './scenes/donate.scene';
 import { VideoService } from './services/video.service';
+import { PriceSetScene } from './scenes/priceSet.scene';
 
 @Module({
 	imports: [
@@ -86,6 +87,7 @@ import { VideoService } from './services/video.service';
 		ParamsService,
 		DescriptionScene,
 		SubsActivateScene,
+		PriceSetScene,
 		DonateScene,
 		BuyScene
 		//Telegraf

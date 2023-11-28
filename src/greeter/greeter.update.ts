@@ -22,6 +22,7 @@ import {
 	EXAMINATION_SCENE_ID,
 	LONGS_SCENE_ID,
 	NEWSLETTER_SCENE_ID,
+	PRICE_SET_SCENE_ID,
 	SHORTS_SCENE_ID,
 	SUBS_ACTIVATE_SCENE_ID,
 	TIKTOK_SCENE_ID,
@@ -73,8 +74,9 @@ export class GreeterUpdate {
 	async onStart(@Ctx() ctx: IContext): Promise<void> {
 		if (ctx.session.languageCode === 'ru') {
 			await ctx.reply(
-			`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
-			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`);
+				`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
+			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`
+			);
 		} else {
 			await ctx.reply(`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
 			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`);
@@ -189,6 +191,14 @@ export class GreeterUpdate {
 		await ctx.scene.enter(EXAMINATION_SCENE_ID);
 		return;
 	}
+
+	@UseGuards(AdminGuard)
+	@Hears('Установить цену программы')
+	async onPriceSet(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(PRICE_SET_SCENE_ID);
+		return;
+	}
+
 	@UseGuards(SubsGuard)
 	@Hears('TikTok')
 	async onTikTok(@Ctx() ctx: ScenesContext): Promise<void> {

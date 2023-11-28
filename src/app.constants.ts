@@ -14,3 +14,4 @@ export const SUBS_ACTIVATE_SCENE_ID: string = 'subs-activate-scene';
 export const NEWSLETTER_SCENE_ID: string = 'newsletter-scene';
 export const SUBSCRIPTION_SCENE_ID: string = 'subscription-scene';
 export const EXAMINATION_SCENE_ID: string = 'examination-scene';
+export const PRICE_SET_SCENE_ID: string = 'price-set-scene';
