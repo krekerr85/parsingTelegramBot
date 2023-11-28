@@ -211,7 +211,7 @@ export class WalletPayService {
 					await this.bot.telegram.sendMessage(userId, 'Истекло время оплаты!', {
 						reply_to_message_id: order.messageId
 					});
-					await this.bot.telegram.deleteMessage(userId, order.messageId);
+					//await this.bot.telegram.deleteMessage(userId, order.messageId);
 				}
 			}
 		} else if (customData === 'donate') {
@@ -226,7 +226,7 @@ export class WalletPayService {
 					await this.bot.telegram.sendMessage(userId, 'Истекло время оплаты!', {
 						reply_to_message_id: order.messageId
 					});
-					await this.bot.telegram.deleteMessage(userId, order.messageId);
+					//await this.bot.telegram.deleteMessage(userId, order.messageId);
 				}
 			}
 		}
