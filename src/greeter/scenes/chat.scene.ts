@@ -2,7 +2,7 @@ import { Scene, SceneEnter, SceneLeave, Ctx, Hears} from 'nestjs-telegraf';
 import { CHAT_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Menu } from 'src/Markup/Menu';
-import { ChatButton } from 'src/Markup/Payment';
+import { ChatButton } from 'src/Markup/ChatButton';
 import { WalletPayService } from 'src/walletpay/services/walletpay.service';
 
 @Scene(CHAT_SCENE_ID)
