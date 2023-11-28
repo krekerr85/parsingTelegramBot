@@ -21,6 +21,19 @@ export class DonateScene {
 	async onSceneLeave(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.menu'), Menu(ctx));
 	}
+	
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('Back.message');
+	})
+	async onLeaveHears(@Ctx() ctx: ScenesContext): Promise<void> {
+		if (ctx.session.__scenes.state.isLoading) {
+			await ctx.reply('Please wait, video is loading');
+			return;
+		}
+
+		await ctx.scene.leave();
+	}
 
 	@Hears('/restart')
 	async onRestart(@Ctx() ctx: ScenesContext): Promise<void> {

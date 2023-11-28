@@ -64,7 +64,7 @@ export class ChannelUserSearchScene {
 			ctx.session.__scenes.state.isLoading = true;
 
 			const users = await this.gramService.searchUsers(message);
-			const userNames = users.map(user => user.username);
+			const userNames = users.filter(user => user).map(user => `@${user.username}`);
 			const fileContent = userNames.join('\n');
 			await ctx.replyWithDocument({
 				source: Buffer.from(fileContent),

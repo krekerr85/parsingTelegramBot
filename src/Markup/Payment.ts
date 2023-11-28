@@ -1,7 +1,10 @@
-// import { Markup } from 'telegraf';
-// import { IContext } from '../interfaces/context.interface';
 
-// export const Payment = (ctx: IContext): Markup.Markup<any> => {
-// 	const button = Markup.button.url(':purse: Wallet Pay', buttonUrl);
-// 	const keyboard = Markup.inlineKeyboard([button]).resize();
-// };
+import { Markup } from 'telegraf';
+import { IContext } from '../interfaces/context.interface';
+
+export const ChatButton = (ctx: IContext) => {
+
+    return Markup.inlineKeyboard([
+        Markup.button.url('@TWITRIS', process.env.TELEGRAM_URL)
+      ])
+};

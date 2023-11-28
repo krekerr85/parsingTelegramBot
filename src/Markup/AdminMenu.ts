@@ -5,10 +5,10 @@ export const AdminMenu = (ctx: IContext): Markup.Markup<any> => {
 	const subscription = ctx.session.subscription;
 	return Markup.keyboard(
 		[
-			Markup.button.callback('Аналитика 👾', 'analytics'),
-			Markup.button.callback('Сделать рассылку 👥', 'users'),
-			Markup.button.callback('Проверка на подписку 📄', 'channels'),
-			subscription ? Markup.button.callback('Деактивация подписки 📄', 'subscription') : Markup.button.callback('Активация подписки 📄', 'subscription'),
+			Markup.button.callback('Аналитика', 'analytics'),
+			Markup.button.callback('Сделать рассылку', 'users'),
+			Markup.button.callback('Проверка на подписку', 'channels'),
+			subscription ? Markup.button.callback('Деактивация подписки', 'subscription') : Markup.button.callback('Активация подписки', 'subscription'),
 			Markup.button.callback(ctx.i18.t('Back.message'), 'cancel')
 		],
 		{

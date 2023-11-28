@@ -73,25 +73,11 @@ export class GreeterUpdate {
 	async onStart(@Ctx() ctx: IContext): Promise<void> {
 		if (ctx.session.languageCode === 'ru') {
 			await ctx.reply(
-			`😜 gospodbog.com
-
-😊 Благодарим за Использование.
-			
-🤯 ☝️ ✋🖖☝️ 🤞🖖✌️
-			
-❤️ Каждый Донат будет равномерно распределяется между Участниками Чата @TWITRIS
-			
-Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.`);
+			`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
+			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`);
 		} else {
-			await ctx.reply(`😜 gospodbog.com
-
-😊 Thank you for using.
-
-🤯 ☝️ ✋🖖☝️ 🤞🖖✌️
-
-❤️ Each Donation will be evenly distributed among the Participants of the Chat @TWITRIS
-
-We are for a Clean Internet WITHOUT ADVERTISING.`);
+			await ctx.reply(`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
+			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`);
 		}
 
 		await ctx.reply(ctx.i18.t('ChooseLang.chooseMessage'), ChooseLang());
@@ -164,34 +150,34 @@ We are for a Clean Internet WITHOUT ADVERTISING.`);
 	}
 
 	@UseGuards(AdminGuard)
-	@Hears('Админка 🤖')
+	@Hears('Админка')
 	async onAdmin(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply('Выбери в меню, что ты хочешь сделать.', AdminMenu(ctx));
 	}
 
 	@UseGuards(AdminGuard)
-	@Hears('Аналитика 👾')
+	@Hears('Аналитика')
 	async onAnalytics(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(ANALYTICS_SCENE_ID);
 		return;
 	}
 
 	@UseGuards(AdminGuard)
-	@Hears('Проверка на подписку 📄')
+	@Hears('Проверка на подписку')
 	async onChannel(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply('Выбери в меню, что ты хочешь сделать.', ChannelMenu(ctx));
 		return;
 	}
 
 	@UseGuards(AdminGuard)
-	@Hears('Активация подписки 📄')
+	@Hears('Активация подписки')
 	async onSubscription(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(SUBS_ACTIVATE_SCENE_ID);
 		return;
 	}
 
 	@UseGuards(AdminGuard)
-	@Hears('Сделать рассылку 👥')
+	@Hears('Сделать рассылку')
 	async onNewsletter(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(NEWSLETTER_SCENE_ID);
 		return;
@@ -204,7 +190,7 @@ We are for a Clean Internet WITHOUT ADVERTISING.`);
 		return;
 	}
 	@UseGuards(SubsGuard)
-	@Hears('TikTok 💃')
+	@Hears('TikTok')
 	async onTikTok(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(TIKTOK_SCENE_ID);
 		return;
@@ -216,7 +202,7 @@ We are for a Clean Internet WITHOUT ADVERTISING.`);
 		return;
 	}
 	@UseGuards(SubsGuard)
-	@Hears('Видео ▶️')
+	@Hears('Видео')
 	async onVideo(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.video'), VideoMenu(ctx));
 		return;

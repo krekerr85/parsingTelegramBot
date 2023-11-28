@@ -1,7 +1,6 @@
 {
 	"Hello": {
-		"message": "Hello, this bot is designed for downloading videos and audio from YouTube. Choose from the menu what you want to download.",
-		"greet": "😜 gospodbog.com\n😊 Благодарим за Использование.\n🤯 ☝️ ✋🖖☝️ 🤞🖖✌️\n❤️ Каждый Донат будет равномерно распределяется между Участниками Чата @TWITRIS\nМы за Чистый Интернет БЕЗ РЕКЛАМЫ."
+		"message": "Hello, this bot is designed for downloading videos and audio from YouTube. Choose from the menu what you want to download."
 	},
 	"Text": {
 		"download": "Choose from the menu what you want to download.",
@@ -10,20 +9,20 @@
 		"menu": "Main Menu.",
 		"message": "Choose from the menu what you want to do."
 	},
-	"Shorts": { "message": "Download Shorts ⌛️" },
+	"Shorts": { "message": "Download Shorts" },
 	"Long": {
-		"message": "Download Long Video 🎥",
-		"restrictions": "Send the video link.\n⚠️ The video should not exceed 7 minutes.",
-		"duration": "⚠️ The video should not exceed 7 minutes."
+		"message": "Download Long Video",
+		"restrictions": "Send the video link.\nThe video should not exceed 7 minutes.",
+		"duration": "The video should not exceed 7 minutes."
 	},
 	"Audio": {
 		"message": "Video to Audio",
-		"restrictions": "Send the video link.\n⚠️ The video should not exceed 50 MB."
+		"restrictions": "Send the video link.\nThe video should not exceed 50 MB."
 	},
 	"VideoNote": {
 		"message": "Video to Video Note",
-		"restrictions": "Send the video link.\n⚠️ The video should not exceed 1 minute.",
-		"duration": "⚠️ The video should not exceed 1 minute."
+		"restrictions": "Send the video link.\nThe video should not exceed 1 minute.",
+		"duration": "The video should not exceed 1 minute."
 	},
 	"Chat": { "message": "Link to our chat @TWITRIS." },
 	"Buy": { "message": "After payment, we will send you the file." },
