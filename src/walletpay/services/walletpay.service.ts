@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as fs from 'fs';
 import * as path from 'path';
 import { InjectBot } from 'nestjs-telegraf';
-import { Telegraf, Context } from 'telegraf';
+import { Telegraf, Context, Markup } from 'telegraf';
 import { UserService } from 'src/user/user.service';
 import { Donates } from '../models/Donate.model';
 
@@ -69,12 +69,20 @@ export class WalletPayService {
 		try {
 			const response = await axios.post(url, data, { headers });
 			const paymentLink = response.data.data.payLink;
-
+			const keyboard = Markup.inlineKeyboard([
+				Markup.button.url(`👛 Wallet Pay`, paymentLink)
+			]);
+			const message = await this.bot.telegram.sendMessage(
+				userId,
+				`Для оплаты нажмите на кнопку.\nСтоимость ${tonCost} TON.`,
+				keyboard
+			);
 			return await this.paymentsModel.create({
 				tonCost,
 				dollarCost,
 				externalId,
 				paymentLink,
+				messageId: message.message_id,
 				userId: customerTelegramUserId
 			});
 		} catch (error) {
@@ -119,10 +127,18 @@ export class WalletPayService {
 		try {
 			const response = await axios.post(url, data, { headers });
 			const paymentLink = response.data.data.payLink;
-
+			const keyboard = Markup.inlineKeyboard([
+				Markup.button.url(`👛 Wallet Pay`, paymentLink)
+			]);
+			const message = await this.bot.telegram.sendMessage(
+				userId,
+				`Для оплаты нажмите на кнопку.\nСтоимость ${tonCost} TON.`,
+				keyboard
+			);
 			return await this.donatesModel.create({
 				tonCost,
 				externalId,
+				messageId: message.message_id,
 				paymentLink,
 				userId: customerTelegramUserId
 			});
@@ -186,16 +202,32 @@ export class WalletPayService {
 			if (order) {
 				order.status = 'canceled';
 				await order.save();
+
+				const userId = Number(order.userId);
+				const user = await this.userService.findOne(userId);
+				if (user) {
+					await this.bot.telegram.sendMessage(userId, 'Истекло время оплаты!', {
+						reply_to_message_id: order.messageId
+					});
+				}
 			}
 		} else if (customData === 'donate') {
 			const order = await this.donatesModel.findOne({ externalId });
 			if (order) {
 				order.status = 'canceled';
 				await order.save();
+
+				const { userId } = order;
+				const user = await this.userService.findOne(userId);
+				if (user) {
+					await this.bot.telegram.sendMessage(userId, 'Истекло время оплаты!', {
+						reply_to_message_id: order.messageId
+					});
+				}
 			}
 		}
 	}
-	
+
 	async sendArchive(userId: number) {
 		const archiveFilePath = path.join(
 			__dirname,

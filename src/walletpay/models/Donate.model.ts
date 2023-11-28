@@ -9,6 +9,9 @@ export class Donates extends Document {
 	@Prop({ required: true, type: String })
 	userId: number;
 
+	@Prop({ required: true, type: String })
+	messageId: number;
+
 	@Prop({ required: true, type: Date, default: Date.now })
 	createdAt: Date;
 

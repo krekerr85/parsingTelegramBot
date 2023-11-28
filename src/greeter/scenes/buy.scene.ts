@@ -28,13 +28,6 @@ export class BuyScene {
 			}
 
 			if (order.paymentLink) {
-				const keyboard = Markup.inlineKeyboard([
-					Markup.button.url(`👛 Wallet Pay`, order.paymentLink)
-				]);
-				await ctx.reply(
-					`Для оплаты нажмите на кнопку.\nСтоимость ${order.tonCost} TON.`,
-					keyboard
-				);
 				await ctx2.scene.leave();
 			} else {
 				console.log('buttonUrl not defined');
