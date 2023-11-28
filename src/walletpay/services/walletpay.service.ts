@@ -153,7 +153,8 @@ export class WalletPayService {
 			{
 				params: {
 					amount: dollarCost,
-					symbol: 'TON'
+					symbol: 'USD',
+					convert: 'TON'
 				},
 				headers: {
 					'X-CMC_PRO_API_KEY': process.env.COINMARKETCAP_TOKEN
@@ -162,10 +163,7 @@ export class WalletPayService {
 		);
 
 		const data = response.data;
-		const toncoinData = data.data.find(
-			(item: any) => item.symbol === 'TON' && item.name === 'Toncoin'
-		);
-		const toncoinPriceUSD = toncoinData.quote.USD.price;
+		const toncoinPriceUSD = data.data[0].quote.TON.price;
 
 		return toncoinPriceUSD;
 	}
