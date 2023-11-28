@@ -22,8 +22,14 @@ export class WalletPayWebhookController {
 		try {
 			for (const orderEvent of body) {
 				const { payload } = orderEvent;
-				const { externalId, customData } = payload;
-				await this.walletPayService.processPayment(externalId, customData);
+				const { externalId, customData, status } = payload;
+				console.log(payload)
+				if (status === 'EXPIRED'){
+					await this.walletPayService.cancelPayment(externalId, customData);
+				}else{
+					await this.walletPayService.processPayment(externalId, customData);
+				}
+				
 			}
 			
 			res.status(200).send('OK');
