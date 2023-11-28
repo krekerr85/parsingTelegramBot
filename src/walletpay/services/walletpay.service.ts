@@ -180,6 +180,22 @@ export class WalletPayService {
 			}
 		}
 	}
+	async cancelPayment(externalId: string, customData: string) {
+		if (customData === 'buy') {
+			const order = await this.findByExternalId(externalId);
+			if (order) {
+				order.status = 'canceled';
+				await order.save();
+			}
+		} else if (customData === 'donate') {
+			const order = await this.donatesModel.findOne({ externalId });
+			if (order) {
+				order.status = 'canceled';
+				await order.save();
+			}
+		}
+	}
+	
 	async sendArchive(userId: number) {
 		const archiveFilePath = path.join(
 			__dirname,
