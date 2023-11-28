@@ -13,7 +13,7 @@ export class WalletPayWebhookController {
 	) {
 		const clientIP = headers['x-real-ip'];
 		const allowedIPs = ['172.255.248.12', '172.255.248.29'];
-		console.log(clientIP)
+		console.log(body)
 		if (!allowedIPs.includes(clientIP)) {
 			res.status(403).send('Forbidden');
 			return;
