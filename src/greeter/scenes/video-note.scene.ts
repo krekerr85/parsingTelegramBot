@@ -75,7 +75,7 @@ export class VideoNoteScene {
 
 			const duration = video.duration;
 			const { width, height } = video;
-			const minSide = Math.min(width, height);
+			const minSide = Math.min(width, height, 639);
 			if (duration > 60) {
 				await ctx.reply(ctx2.i18.t('VideoNote.duration'), Back(ctx2));
 				return;
@@ -144,7 +144,7 @@ export class VideoNoteScene {
 
 			const duration = animation.duration;
 			const { width, height } = animation;
-			const minSide = Math.min(width, height);
+			const minSide = Math.min(width, height, 639);
 			console.log(animation);
 			if (duration > 60) {
 				await ctx.reply(ctx2.i18.t('VideoNote.duration'), Back(ctx2));
