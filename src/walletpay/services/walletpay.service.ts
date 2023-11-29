@@ -262,7 +262,6 @@ export class WalletPayService {
 		);
 		fs.readFile(archiveFilePath, {}, async (err, data) => {
 			if (!err) {
-				console.log('received data: ' + data);
 				try{
 					await this.bot.telegram.sendDocument(
 						userId,

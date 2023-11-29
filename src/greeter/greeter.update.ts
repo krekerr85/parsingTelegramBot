@@ -73,16 +73,6 @@ export class GreeterUpdate {
 	@UseGuards(SubsGuard)
 	@Start()
 	async onStart(@Ctx() ctx: IContext): Promise<void> {
-		if (ctx.session.languageCode === 'ru') {
-			await ctx.reply(
-				`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
-			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`
-			);
-		} else {
-			await ctx.reply(`Мы за Чистый Интернет БЕЗ РЕКЛАМЫ.
-			@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты.`);
-		}
-
 		await ctx.reply(ctx.i18.t('ChooseLang.chooseMessage'), ChooseLang());
 	}
 
@@ -91,7 +81,7 @@ export class GreeterUpdate {
 		ctx.i18.setLocale('ru');
 		await ctx.answerCbQuery();
 		await ctx.deleteMessage();
-		//await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
+		await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
 	}
 
 	@Action('en')
@@ -99,7 +89,7 @@ export class GreeterUpdate {
 		ctx.i18.setLocale('en');
 		await ctx.answerCbQuery();
 		await ctx.deleteMessage();
-		//await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
+		await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
 	}
 
 	@Hears('/restart')
