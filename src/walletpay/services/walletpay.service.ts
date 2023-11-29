@@ -209,9 +209,14 @@ export class WalletPayService {
 				const { userId } = order;
 				const user = await this.userService.findOne(userId);
 				if (user) {
-					await this.bot.telegram.sendMessage(userId, 'Оплата прошла успешно! Спасибо за вашу поддержку!', {
-						reply_to_message_id: order.messageId
-					});
+					try{
+						await this.bot.telegram.sendMessage(userId, 'Оплата прошла успешно! Спасибо за вашу поддержку!', {
+							reply_to_message_id: order.messageId
+						});
+					}catch(e){
+						await this.bot.telegram.sendMessage(userId, 'Оплата прошла успешно! Спасибо за вашу поддержку!');
+					}
+					
 				}
 			}
 		}
@@ -258,17 +263,28 @@ export class WalletPayService {
 		fs.readFile(archiveFilePath, {}, async (err, data) => {
 			if (!err) {
 				console.log('received data: ' + data);
-				await this.bot.telegram.sendDocument(
-					userId,
-					{
-						source: data,
-						filename: 'twitris.zip'
-					},
-					{
-						caption: 'Спасибо за покупку!',
-						reply_to_message_id: messageId
-					}
-				);
+				try{
+					await this.bot.telegram.sendDocument(
+						userId,
+						{
+							source: data,
+							filename: 'twitris.zip'
+						},
+						{
+							caption: 'Спасибо за покупку!',
+							reply_to_message_id: messageId
+						}
+					);
+				}catch(e){
+					await this.bot.telegram.sendDocument(
+						userId,
+						{
+							source: data,
+							filename: 'twitris.zip'
+						}
+					);
+				}
+				
 			} else {
 				console.log(err);
 			}
