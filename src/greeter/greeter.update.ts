@@ -91,7 +91,7 @@ export class GreeterUpdate {
 		ctx.i18.setLocale('ru');
 		await ctx.answerCbQuery();
 		await ctx.deleteMessage();
-		await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
+		//await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
 	}
 
 	@Action('en')
@@ -99,7 +99,7 @@ export class GreeterUpdate {
 		ctx.i18.setLocale('en');
 		await ctx.answerCbQuery();
 		await ctx.deleteMessage();
-		await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
+		//await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
 	}
 
 	@Hears('/restart')
