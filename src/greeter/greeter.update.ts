@@ -65,7 +65,8 @@ export class GreeterUpdate {
 		} else {
 			await this.userService.update(id);
 		}
-
+		console.log('session:', ctx?.session)
+		console.log('update:', ctx?.update)
 		await next();
 	}
 

@@ -1,7 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { ChannelSubscriptions } from '../../models/Channel.model';
-import { ChannelMessage } from '../../models/ChannelMessage.model';
+import { Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
 import { Context, Telegraf } from 'telegraf';
 const { v4: uuidv4 } = require('uuid');
@@ -19,7 +16,6 @@ export class VideoService {
 		try {
 			const response = await axios.get(fileLink, { responseType: 'stream' });
 			const stream = response.data;
-			console.log(stream);
 			await new Promise((resolve, reject) => {
 				stream
 					.pipe(fs.createWriteStream(filePath))

@@ -11,13 +11,8 @@ import { VIDEO_NOTE_SCENE_ID } from '../../app.constants';
 import { IContext, ScenesContext } from '../../interfaces/context.interface';
 import { Back } from '../../Markup/Back';
 import { ClassDownloader } from '../../utils/YouTubeDownloader.class';
-import { v4 as uuidv4 } from 'uuid';
 import { AnalyticsService } from '../services/analytic.service';
-import { DownLoadMenu } from 'src/Markup/DownLoadMenu';
-import * as fs from 'fs';
-import * as path from 'path';
 import { ConverterMenu } from 'src/Markup/ConverterMenu';
-import { Telegraf } from 'telegraf';
 import { VideoService } from '../services/video.service';
 
 @Scene(VIDEO_NOTE_SCENE_ID)
@@ -145,7 +140,6 @@ export class VideoNoteScene {
 			const duration = animation.duration;
 			const { width, height } = animation;
 			const minSide = Math.min(width, height, 639);
-			console.log(animation);
 			if (duration > 60) {
 				await ctx.reply(ctx2.i18.t('VideoNote.duration'), Back(ctx2));
 				return;
