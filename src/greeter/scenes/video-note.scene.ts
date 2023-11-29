@@ -95,26 +95,26 @@ export class VideoNoteScene {
 				filename: fileName
 			});
 
-			const directory = 'src/static/videos';
-			const directoryDownload = 'static/video';
-			fs.readdir(directory, (err, files) => {
-				if (err) throw err;
+			// const directory = 'src/static/videos';
+			// const directoryDownload = 'static/video';
+			// fs.readdir(directory, (err, files) => {
+			// 	if (err) throw err;
 
-				for (const file of files) {
-					fs.unlink(path.join(directory, file), err => {
-						if (err) throw err;
-					});
-				}
-			});
-			fs.readdir(directoryDownload, (err, files) => {
-				if (err) throw err;
+			// 	for (const file of files) {
+			// 		fs.unlink(path.join(directory, file), err => {
+			// 			if (err) throw err;
+			// 		});
+			// 	}
+			// });
+			// fs.readdir(directoryDownload, (err, files) => {
+			// 	if (err) throw err;
 
-				for (const file of files) {
-					fs.unlink(path.join(directoryDownload, file), err => {
-						if (err) throw err;
-					});
-				}
-			});
+			// 	for (const file of files) {
+			// 		fs.unlink(path.join(directoryDownload, file), err => {
+			// 			if (err) throw err;
+			// 		});
+			// 	}
+			// });
 			return;
 		} catch (err) {
 			console.log(err);
@@ -165,26 +165,26 @@ export class VideoNoteScene {
 				filename: fileName
 			});
 
-			const directory = 'src/static/videos';
-			const directoryDownload = 'static/video';
-			fs.readdir(directory, (err, files) => {
-				if (err) throw err;
+			// const directory = 'src/static/videos';
+			// const directoryDownload = 'static/video';
+			// fs.readdir(directory, (err, files) => {
+			// 	if (err) throw err;
 
-				for (const file of files) {
-					fs.unlink(path.join(directory, file), err => {
-						if (err) throw err;
-					});
-				}
-			});
-			fs.readdir(directoryDownload, (err, files) => {
-				if (err) throw err;
+			// 	for (const file of files) {
+			// 		fs.unlink(path.join(directory, file), err => {
+			// 			if (err) throw err;
+			// 		});
+			// 	}
+			// });
+			// fs.readdir(directoryDownload, (err, files) => {
+			// 	if (err) throw err;
 
-				for (const file of files) {
-					fs.unlink(path.join(directoryDownload, file), err => {
-						if (err) throw err;
-					});
-				}
-			});
+			// 	for (const file of files) {
+			// 		fs.unlink(path.join(directoryDownload, file), err => {
+			// 			if (err) throw err;
+			// 		});
+			// 	}
+			// });
 			return;
 		} catch (err) {
 			console.log(err);
