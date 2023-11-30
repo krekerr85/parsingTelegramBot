@@ -1,50 +1,67 @@
 {
 	"Hello": {
-		"message": "Мы за Чистый Интернет БЕЗ РЕКЛАМЫ. \n@twitris_bot - Бесплатный бот, не требующий Подписок на Каналы/Чаты."
+		"message": "We are for Clean Internet WITHOUT ADVERTISING.\n@twitris_bot - Free bot, no need to subscribe to Channels/Chats."
 	},
+	"Menu": { "chat": "Chat", "parsing": "Parsing", "admin": "Admin" },
+	"AdminMenu": {
+		"analytics": "Analytics",
+		"newsLetter": "Send Newsletter",
+		"checkSubs": "Check Subscriptions",
+		"setPrice": "Set Program Price",
+		"deactivateSub": "Deactivate Subscription",
+		"activateSub": "Activate Subscription"
+	},
+	"ChannelMenu": { "currentCheck": "Current Check", "addCheck": "Add Check" },
+	"NewsLetterMenu": { "buy": "Buy", "description": "Description" },
+	"ParsingMenu": {
+		"subs": "Subscribers",
+		"channels": "Channels/Chats",
+		"newsLetter": "Newsletter"
+	},
+	"VideoMenu": { "download": "Download", "converter": "Convert" },
 	"Text": {
-		"download": "Choose from the menu what you want to download.",
-		"convert": "Choose from the menu what you want to convert.",
-		"video": "Choose from the menu what you want to do with the video.",
+		"download": "Choose what you want to download from the menu.",
+		"convert": "Choose what you want to convert from the menu.",
+		"video": "Choose what you want to do with the video from the menu.",
 		"menu": "Main menu.",
-		"message": "Choose from the menu what you want to do."
+		"message": "Select from the menu what you want to do."
 	},
 	"Shorts": { "message": "Shorts" },
 	"Long": {
 		"message": "Youtube",
-		"restrictions": "Send a link to the video.\nThe video should not exceed 15 minutes.",
-		"duration": " The video should not exceed 7 minutes."
+		"restrictions": "Send a video link.\nThe video should not exceed 15 minutes.",
+		"duration": "The video should not exceed 7 minutes."
 	},
 	"Audio": {
 		"message": "Video to Audio",
-		"restrictions": "Send a link to the video.\nThe video should not exceed 50 MB."
+		"restrictions": "Send a video link.\nThe video should not exceed 50 MB."
 	},
 	"VideoNote": {
-		"message": "Video to Video Note",
+		"message": "Video to Circle",
 		"restrictions": "Send a video.\nThe video should not exceed 1 minute.",
 		"duration": "The video should not exceed 1 minute.",
 		"invalidFileType": "The video should be in mp4 format."
 	},
 	"Chat": {
 		"message": "Link to our chat:",
-		"needDonate": "To access the chat, you need to make a purchase or donation!"
+		"needDonate": "To access the chat, you need to make a purchase or donate!"
 	},
 	"Buy": { "message": "After payment, we will send you the file." },
 	"Donate": {
 		"error": "Invalid amount!",
-		"restrictions": "Choose the Donation Amount in TON\nEach Donate will be distributed among the Chat Participants @TWITRIS Join."
+		"restrictions": "Choose the Donation Amount in TON\nEach Donation will be distributed among the @TWITRIS Chat Participants. Join us."
 	},
-	"NewsLetter": { "message": "Choose from the menu what you want to do." },
-	"ParsingChannels": { "restrictions": "Send a search query." },
+	"NewsLetter": { "message": "Select from the menu what you want to do." },
+	"ParsingChannels": { "restrictions": "Send a search term." },
 	"ParsingUsers": { "restrictions": "Send a link to the chat." },
-	"Parsing": { "message": "Choose from the menu what you need to parse." },
+	"Parsing": { "message": "Choose what needs to be parsed from the menu." },
 	"Price": {
-		"set": "Write a new price for the program in TON.",
+		"set": "Write a new program price in USD.",
 		"error": "Invalid amount!"
 	},
 	"ChooseLang": { "chooseMessage": "Choose a language", "message": "Language" },
 	"Video": { "shortsMessage": "Send me a video link." },
-	"Convert": { "message": "Choose from the menu what you want to convert." },
+	"Convert": { "message": "Choose what you want to convert from the menu." },
 	"Subscription": {
 		"deactivate": "Subscription has been deactivated!",
 		"activate": "Subscription has been activated!"

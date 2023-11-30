@@ -5,8 +5,8 @@ export const ChannelMenu = (ctx: IContext): Markup.Markup<any> => {
 	return Markup.keyboard(
 		[
 			Markup.button.callback(ctx.i18.t('Back.message'), 'cancel'),
-			Markup.button.callback('Текущая проверка', 'cancel'),
-			Markup.button.callback('Добавить проверку', 'cancel')
+			Markup.button.callback(ctx.i18.t('ChannelMenu.currentCheck'), 'cancel'),
+			Markup.button.callback(ctx.i18.t('ChannelMenu.addCheck'), 'cancel')
 		],
 		{
 			columns: 2,

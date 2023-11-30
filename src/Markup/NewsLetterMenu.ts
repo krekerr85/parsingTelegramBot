@@ -4,8 +4,8 @@ import { IContext } from '../interfaces/context.interface';
 export const NewsLetterMenu = (ctx: IContext): Markup.Markup<any> => {
 	return Markup.keyboard(
 		[	
-			Markup.button.callback(ctx.i18.t('Описание'), 'description'),
-			Markup.button.callback(ctx.i18.t('Купить'), 'buy'),
+			Markup.button.callback(ctx.i18.t('NewsLetterMenu.description'), 'description'),
+			Markup.button.callback(ctx.i18.t('NewsLetterMenu.buy'), 'buy'),
 			Markup.button.callback(ctx.i18.t('Back.message'), 'cancel'),
 		],
 		{
