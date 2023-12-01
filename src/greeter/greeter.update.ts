@@ -65,8 +65,8 @@ export class GreeterUpdate {
 		} else {
 			await this.userService.update(id);
 		}
-		console.log('session:', ctx?.session)
-		console.log('update:', ctx?.update)
+		console.log('session:', ctx?.session);
+		console.log('update:', ctx?.update);
 		await next();
 	}
 
@@ -97,8 +97,8 @@ export class GreeterUpdate {
 		await ctx.reply(ctx.i18.t('Hello.message'), Menu(ctx));
 	}
 
+	@UseGuards(SubsGuard)
 	// @ts-ignore
-
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('ChooseLang.message');
 	})
@@ -106,6 +106,7 @@ export class GreeterUpdate {
 		await ctx.reply(ctx.i18.t('ChooseLang.chooseMessage'), ChooseLang());
 	}
 
+	@UseGuards(SubsGuard)
 	// @ts-ignore
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('Long.message');
@@ -115,6 +116,7 @@ export class GreeterUpdate {
 		return;
 	}
 
+	@UseGuards(SubsGuard)
 	// @ts-ignore
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('Shorts.message');
@@ -124,6 +126,7 @@ export class GreeterUpdate {
 		return;
 	}
 
+	@UseGuards(SubsGuard)
 	// @ts-ignore
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('Audio.message');
@@ -133,6 +136,7 @@ export class GreeterUpdate {
 		return;
 	}
 
+	@UseGuards(SubsGuard)
 	// @ts-ignore
 	@Hears((value, ctx: IContext) => {
 		return value === ctx.i18.t('VideoNote.message');
@@ -142,132 +146,192 @@ export class GreeterUpdate {
 		return;
 	}
 
-	@UseGuards(AdminGuard)
-	@Hears('Админка')
-	async onAdmin(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply('Выбери в меню, что ты хочешь сделать.', AdminMenu(ctx));
-	}
-
-	@UseGuards(AdminGuard)
-	@Hears('Аналитика')
-	async onAnalytics(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(ANALYTICS_SCENE_ID);
-		return;
-	}
-
-	@UseGuards(AdminGuard)
-	@Hears('Проверка на подписку')
-	async onChannel(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply('Выбери в меню, что ты хочешь сделать.', ChannelMenu(ctx));
-		return;
-	}
-
-	@UseGuards(AdminGuard)
-	@Hears('Активация подписки')
-	async onSubscription(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(SUBS_ACTIVATE_SCENE_ID);
-		return;
-	}
-
-	@UseGuards(AdminGuard)
-	@Hears('Сделать рассылку')
-	async onNewsletter(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(NEWSLETTER_SCENE_ID);
-		return;
-	}
-
-	@UseGuards(AdminGuard)
-	@Hears('Добавить проверку')
-	async onExamination(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(EXAMINATION_SCENE_ID);
-		return;
-	}
-
-	@UseGuards(AdminGuard)
-	@Hears('Установить цену программы')
-	async onPriceSet(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(PRICE_SET_SCENE_ID);
-		return;
-	}
-
 	@UseGuards(SubsGuard)
 	@Hears('TikTok')
 	async onTikTok(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(TIKTOK_SCENE_ID);
 		return;
 	}
-	@UseGuards(SubsGuard)
-	@Hears('Парсинг')
-	async onParse(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('Parsing.message'), ParsingMenu(ctx));
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('AdminMenu.analytics');
+	})
+	async onAnalytics(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(ANALYTICS_SCENE_ID);
 		return;
 	}
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('AdminMenu.checkSubs');
+	})
+	async onChannel(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('Text.message'), ChannelMenu(ctx));
+		return;
+	}
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return (
+			value === ctx.i18.t('AdminMenu.activateSub') ||
+			value === ctx.i18.t('AdminMenu.deactivateSub')
+		);
+	})
+	async onSubscription(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(SUBS_ACTIVATE_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('AdminMenu.newsLetter');
+	})
+	async onNewsletter(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(NEWSLETTER_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('AdminMenu.setPrice');
+	})
+	async onPriceSet(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(PRICE_SET_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('Menu.admin');
+	})
+	async onAdmin(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('Text.message'), AdminMenu(ctx));
+	}
+
 	@UseGuards(SubsGuard)
-	@Hears('Видео')
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('Menu.video');
+	})
 	async onVideo(@Ctx() ctx: IContext): Promise<void> {
 		await ctx.reply(ctx.i18.t('Text.video'), VideoMenu(ctx));
 		return;
 	}
+
 	@UseGuards(SubsGuard)
-	@Hears('Скачать')
-	async onDownLoad(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('Text.download'), DownLoadMenu(ctx));
-		return;
-	}
-	@UseGuards(SubsGuard)
-	@Hears('Конвертер')
-	async onConvert(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('Convert.message'), ConverterMenu(ctx));
-		return;
-	}
-	@UseGuards(SubsGuard)
-	@Hears('Каналы/Чаты')
-	async onСhannels(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(CHANNELS_SEARCH_SCENE_ID);
-		return;
-	}
-	@UseGuards(SubsGuard)
-	@Hears('Участники')
-	async onUsers(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(CHANNEL_USER_SEARCH_SCENE_ID);
-		return;
-	}
-	@UseGuards(SubsGuard)
-	@Hears('Рассылка')
-	async onNewsLetter(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply(ctx.i18.t('NewsLetter.message'), NewsLetterMenu(ctx));
-		return;
-	}
-	@UseGuards(SubsGuard)
-	@Hears('Чат')
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('Menu.chat');
+	})
 	async onChat(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(CHAT_SCENE_ID);
 		return;
 	}
-	@UseGuards(SubsGuard)
-	@Hears('Описание')
-	async onDescription(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(DESCRIPTION_SCENE_ID);
-		return;
-	}
-	@UseGuards(SubsGuard)
-	@Hears('Купить')
-	async onBuy(@Ctx() ctx: ScenesContext): Promise<void> {
-		await ctx.scene.enter(BUY_SCENE_ID);
-		return;
-	}
 
 	@UseGuards(SubsGuard)
-	@Hears('Донат')
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('Menu.donate');
+	})
 	async onDonate(@Ctx() ctx: ScenesContext): Promise<void> {
 		await ctx.scene.enter(DONATE_SCENE_ID);
 		return;
 	}
 
 	@UseGuards(SubsGuard)
-	@On('animation')
-	async onVideoSend(@Ctx() ctx: IContext) {
-		await ctx.reply('Download', Menu(ctx));
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('VideoMenu.download');
+	})
+	async onDownLoad(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('Text.download'), DownLoadMenu(ctx));
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('VideoMenu.conveter');
+	})
+	async onConvert(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('Convert.message'), ConverterMenu(ctx));
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('ParsingMenu.channels');
+	})
+	async onСhannels(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(CHANNELS_SEARCH_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('Menu.parsing');
+	})
+	async onParse(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('Parsing.message'), ParsingMenu(ctx));
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('ParsingMenu.subs');
+	})
+	async onUsers(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(CHANNEL_USER_SEARCH_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('ParsingMenu.newsLetter');
+	})
+	async onNewsLetter(@Ctx() ctx: IContext): Promise<void> {
+		await ctx.reply(ctx.i18.t('NewsLetter.message'), NewsLetterMenu(ctx));
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('NewsLetterMenu.description');
+	})
+	async onDescription(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(DESCRIPTION_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(SubsGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('NewsLetterMenu.buy');
+	})
+	async onBuy(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(BUY_SCENE_ID);
+		return;
+	}
+
+	@UseGuards(AdminGuard)
+	// @ts-ignore
+	@Hears((value, ctx: IContext) => {
+		return value === ctx.i18.t('ChannelMenu.addCheck');
+	})
+	async onExamination(@Ctx() ctx: ScenesContext): Promise<void> {
+		await ctx.scene.enter(EXAMINATION_SCENE_ID);
 		return;
 	}
 

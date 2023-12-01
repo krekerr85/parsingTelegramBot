@@ -2,7 +2,13 @@
 	"Hello": {
 		"message": "We are for Clean Internet WITHOUT ADVERTISING.\n@twitris_bot - Free bot, no need to subscribe to Channels/Chats."
 	},
-	"Menu": { "chat": "Chat", "parsing": "Parsing", "admin": "Admin" },
+	"Menu": {
+		"chat": "Chat",
+		"parsing": "Parsing",
+		"admin": "Admin",
+		"video": "Video",
+		"donate": "Donate"
+	},
 	"AdminMenu": {
 		"analytics": "Analytics",
 		"newsLetter": "Send Newsletter",

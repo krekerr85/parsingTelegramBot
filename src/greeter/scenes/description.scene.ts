@@ -5,7 +5,9 @@ import { NewsLetterMenu } from 'src/Markup/NewsLetterMenu';
 
 @Scene(DESCRIPTION_SCENE_ID)
 export class DescriptionScene {
-	private message = `Рассылка в Чаты Telegram. Навсегда. Без Подписки.
+	private message = `
+	Программное обеспечение  рассылки для Windows.
+	Рассылка в Чаты Telegram. Навсегда. Без Подписки.
 	• Упоминание @ Участников. Гарантия, что Реклама будет Прочитана.
 	• Работа с Компьютера Windows 10+
 	• Отправка Фото + Текст + Эмодзи.
@@ -18,7 +20,8 @@ export class DescriptionScene {
 	• Мультипоточность. Поддерживает Подключение.
 	• Массы Аккаунтов в Одном Окне.
 	• Возможность Настраивать Telegram Аккаунт.
-	• Бесплатные Обновления.`;
+	• Бесплатные Обновления.
+	Техническая поддержка @depseller.`;
 	constructor() {}
 
 	@SceneEnter()

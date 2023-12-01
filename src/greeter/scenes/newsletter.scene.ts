@@ -24,7 +24,7 @@ export class NewsletterScene {
 
 	@SceneEnter()
 	async onSceneEnter(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.reply('Отправте сообщение для рассылки', Back(ctx));
+		await ctx.reply(ctx.i18.t('NewsLetter.message'), Back(ctx));
 	}
 
 	@SceneLeave()
@@ -48,23 +48,24 @@ export class NewsletterScene {
 	@On('text')
 	async onNewsletter(
 		@Ctx() ctx: ScenesContext,
+		@Ctx() ctx2: IContext,
 		@Message('text') message: string
 	) {
 		ctx.session.__scenes.state.message = message;
 		await ctx.reply(
-			`Ваше сообщение \\- '${markdownV2Format(
+			`${ctx2.i18.t('NewsLetter.yourMessage')} \\- '${markdownV2Format(
 				message
-			)}'\n⚠️ Вы действительно хотите его отправить? ⚠️`,
+			)}'\n⚠️ ${ctx2.i18.t('NewsLetter.wantToSend')} ⚠️`,
 			{
 				reply_markup: {
 					inline_keyboard: [
 						[
 							{
-								text: 'Отправить',
+								text: ctx2.i18.t('NewsLetter.messageSend'),
 								callback_data: 'send'
 							},
 							{
-								text: 'Отмена',
+								text: ctx2.i18.t('NewsLetter.messageCancel'),
 								callback_data: 'cancel'
 							}
 						]
@@ -76,7 +77,7 @@ export class NewsletterScene {
 	}
 
 	@Action('send')
-	async onSend(@Ctx() ctx: ScenesContext): Promise<void> {
+	async onSend(@Ctx() ctx: ScenesContext, @Ctx() ctx2: IContext): Promise<void> {
 		const users = await this.userModel.find();
 		try {
 			await Promise.all(
@@ -93,10 +94,10 @@ export class NewsletterScene {
 		} catch (err) {
 			console.log(err);
 		}
-		await ctx.answerCbQuery('Отправлено');
+		await ctx.answerCbQuery(ctx2.i18.t('NewsLetter.sended'));
 		await ctx.deleteMessage();
 		await ctx.reply(
-			'Отправте сообщение для рассылки',
+			ctx2.i18.t('NewsLetter.message'),
 			Markup.keyboard([Markup.button.callback('⬅\uFE0F Назад', 'cancel')], {
 				columns: 2,
 				wrap: (btn, index, currentRow) => index % 2 !== 0
@@ -106,8 +107,8 @@ export class NewsletterScene {
 
 	@Action('cancel')
 	async onCancel(@Ctx() ctx: IContext): Promise<void> {
-		await ctx.answerCbQuery('Отменено');
+		await ctx.answerCbQuery(ctx.i18.t('NewsLetter.canceled'));
 		await ctx.deleteMessage();
-		await ctx.reply('Отправте сообщение для рассылки', Back(ctx));
+		await ctx.reply(ctx.i18.t('NewsLetter.message'), Back(ctx));
 	}
 }
